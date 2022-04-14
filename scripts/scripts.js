@@ -121,6 +121,18 @@ export function toClassName(name) {
 }
 
 /**
+ * Sanitizes a name for use as an object key.
+ * @param {*} name The unsanitized name
+ * @returns {string} The sanitized name
+ */
+export function toCamelCase(name) {
+  if (name && typeof name === 'string') {
+    return name.split(' ').map((word, i) => (i === 0 ? word.toLowerCase() : word[0].toUpperCase() + word.substring(1))).join('');
+  }
+  return '';
+}
+
+/**
  * Decorates a block.
  * @param {Element} block The block element
  */
@@ -571,6 +583,36 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+}
+
+export async function fetchAPI(path) {
+  const URL = 'https://wbgindicators.azure-api.net/apis/igdataapi/data/wbl';
+  const HEADER = { headers: { 'Ocp-Apim-Subscription-Key': 'ab7bc2c08fea4040a8086753bddb1b07' } };
+  try {
+    const resp = await fetch(`${URL}${path}`, HEADER);
+    const json = await resp.json();
+    return json;
+  } catch {
+    // eslint-disable-next-line no-console
+    console.warn(`Unable to fetch data from ${URL}${path}`);
+    return {};
+  }
+}
+
+export async function fetchEconomies() {
+  if (!window.economies) {
+    const data = await fetchAPI('/year/current/economies');
+    window.economies = data;
+  }
+  return window.economies;
+}
+
+export async function fetchIndicators() {
+  if (!window.indicators) {
+    const data = await fetchAPI('/indicators');
+    window.indicators = data;
+  }
+  return window.indicators;
 }
 
 /**
