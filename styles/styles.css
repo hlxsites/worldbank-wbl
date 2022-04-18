@@ -193,6 +193,12 @@ main .section {
   /* padding: 64px; */
 }
 
+main .section > div {
+  width: 100%;
+  padding-left: var(--spacing-s);
+  padding-right: var(--spacing-s);
+}
+
 main pre {
   /* background-color: var(--overlay-background-color); */
   /* padding: 1em; */
@@ -237,7 +243,7 @@ main img {
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 996px) {
   :root {
     /* --heading-font-size-xxl: 60px; */
     /* --heading-font-size-xl: 48px; */
@@ -252,8 +258,8 @@ main img {
   }
 
   .section > div {
-    /* max-width: 800px; */
-    /* margin: auto; */
+    max-width: var(--container-width);
+    margin: auto;
   }
 }
 

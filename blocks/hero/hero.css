@@ -13,9 +13,10 @@ main .hero-container {
     padding: 0;
 }
   
-main .hero-wrapper {
+main .hero-container .hero-wrapper {
     position: relative;
     width: 100%;
+    padding: 0;
 }
 
 main .hero {
