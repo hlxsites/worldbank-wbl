@@ -1,0 +1,88 @@
+main .dropdown-links {
+  /* border: 2px solid red; */
+  position: relative;
+}
+
+main .dropdown-links a {
+  text-decoration: none;
+}
+
+/* dropdown button */
+main .dropdown-links .dropdown-btn {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-xs) var(--spacing-m);
+  background: var(--link-color);
+  color: var(--background-color);
+  cursor: pointer;
+}
+
+main .dropdown-links .dropdown-btn img {
+  width: var(--body-font-size-s);
+}
+
+/* dropdown options */
+main .dropdown-btn[aria-expanded=false] + .dropdown-options {
+  display: none;
+  visibility: hidden;
+}
+
+main .dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--link-hover-color);
+  background: var(--link-color);
+  color: var(--background-color);
+  list-style: none;
+  z-index: 3;
+}
+
+main ul.dropdown-options {
+  max-height: 270px;
+  overflow-y: auto;
+}
+
+main .dropdown-options .dropdown-option.hide {
+  display: none;
+  visibility: hidden;
+}
+
+main .dropdown-options a {
+  display: block;
+  padding: var(--spacing-xs) var(--spacing-m);
+  color: var(--background-color);
+}
+
+main .dropdown-options a:hover {
+  background: var(--link-hover-color);
+}
+
+/* dropdown options filter */
+main .dropdown-filter-wrapper {
+  padding: var(--spacing-s);
+}
+
+main .dropdown-filter-wrapper img {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-m);
+  height: var(--body-font-size-m);
+  width: var(--body-font-size-m);
+  transform: translateY(-50%);
+}
+
+main .dropdown-filter {
+  width: 100%;
+  border-color: var(--link-color);
+}
+
+main .dropdown-filter:focus,
+main .dropdown-filter:hover {
+  border-color: var(--link-hover-color);
+}
+

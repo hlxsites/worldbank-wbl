@@ -31,9 +31,9 @@
 
   /* body sizes */
   --body-font-size-m: 16px;
-  /* --body-font-size-s: 18px; */
-  --body-line-height-s: 1.2;
+  --body-font-size-s: 12px;
   --body-line-height-m: 1.6;
+  --body-line-height-s: 1.2;
 
   /* heading sizes */
   /* --heading-font-size-xxl: 48px; */
@@ -158,14 +158,16 @@ pre {
 }
 
 main input, main button {
-  /* font-size: 1.25rem; */
-  /* width: 100%; */
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-s);
+  font-family: inherit;
+  font-size: inherit;
   /* max-width: 50rem; */
-  /* display: block; */
   /* margin-bottom: 1rem; */
-  /* padding: 0.75rem 0.6rem;     */
   /* border-radius: 0.25rem; */
-  /* box-sizing: border-box; */
 }
 
 main button {
@@ -185,8 +187,10 @@ main input {
   /* background-color: var(--background-color); */
 }
 
+main input:focus,
 main input:hover {
-  /* border: 1px solid var(--text-color); */
+  outline: 0;
+  border: 1px solid var(--link-color);
 }
 
 main .section {

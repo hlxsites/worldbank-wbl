@@ -133,6 +133,21 @@ export function toCamelCase(name) {
 }
 
 /**
+ * Builds an icon from the icons folder.
+ * @param {*} name The file name of the icon
+ * @returns {Element} The icon
+ */
+export function buildIcon(name, alt = '') {
+  const icon = document.createElement('img');
+  icon.classList.add('icon', `icon-${toClassName(name)}`);
+  icon.setAttribute('src', `/icons/${toClassName(name)}.svg`);
+  icon.setAttribute('alt', alt);
+  return icon;
+}
+
+
+
+/**
  * Decorates a block.
  * @param {Element} block The block element
  */
@@ -176,19 +191,19 @@ export function readBlockConfig(block) {
         if (col.querySelector('a')) {
           const as = [...col.querySelectorAll('a')];
           if (as.length === 1) {
-            value = as[0].href;
+            value = as[0].href.trim();
           } else {
-            value = as.map((a) => a.href);
+            value = as.map((a) => a.href.trim());
           }
         } else if (col.querySelector('p')) {
           const ps = [...col.querySelectorAll('p')];
           if (ps.length === 1) {
-            value = ps[0].textContent;
+            value = ps[0].textContent.trim();
           } else {
-            value = ps.map((p) => p.textContent);
+            value = ps.map((p) => p.textContent.trim());
           }
         } else value = row.children[1].textContent;
-        config[name] = value;
+        config[name] = value.trim();
       }
     }
   });
