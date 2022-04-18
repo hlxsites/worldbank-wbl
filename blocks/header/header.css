@@ -198,6 +198,7 @@ header .nav-language-switch a {
 header .nav-language-switch #language-btn {
   display: flex;
   justify-content: center;
+  align-items: center;
   text-transform: uppercase;
   cursor: pointer;
 }
@@ -220,6 +221,8 @@ header .nav-language-switch #language-btn span {
 }
 
 header .nav-language-switch #language-btn img {
+  height: var(--heading-size);
+  width: var(--heading-size);
   margin-left: var(--spacing-xxs);
 }
 
