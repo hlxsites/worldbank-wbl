@@ -735,14 +735,21 @@
 a.btn {
   display: inline-block;
   padding: var(--spacing-s);
-  background: var(--link-color);
-  color: var(--background-color);
-  font-size: var(--detail-font-size-s);
+  background: var(--background-color);
+  color: var(--link-color);
+  font-size: var(--detail-font-size-m);
   font-weight: var(--weight-semibold);
   text-decoration: none;
   cursor: pointer;
 }
 
+a.btn::after {
+  content: '\203A';
+  padding-left: var(--spacing-s);
+  font-size: var(--heading-font-size-s);
+  line-height: .8;
+}
+
 a.btn:hover {
-  background: var(--link-hover-color);
+  color: var(--link-hover-color);
 }

@@ -651,6 +651,8 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
+
+  doc.querySelectorAll('.section:empty').forEach((s) => s.remove());
 }
 
 /**
