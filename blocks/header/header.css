@@ -7,6 +7,12 @@
 
 @media (min-width: 476px) {
   :root {
+    --brand-size: 14px;
+  }
+}
+
+@media (min-width: 576px) {
+  :root {
     --brand-size: 20px;
   }
 }
@@ -130,13 +136,13 @@ header .nav-brand {
   grid-area: brand;
   padding: var(--spacing-m) var(--spacing-s) var(--spacing-m) 0;
   font-family: var(--heading-font-family);
-  font-size: var(--brand-size);
 }
 
 header .nav-brand p {
   display: flex;
   align-items: center;
   margin: 0;
+  font-size: var(--brand-size);
 }
 
 header .nav-brand a {
@@ -354,11 +360,14 @@ header .nav-sections .nav-links li {
   header .nav-sections .nav-links li:not(:last-child) {
     margin-right: var(--spacing-m);
   }
-
+  
   header .nav-sections .nav-links a {
-    display: block;
     color: var(--background-color);
   }
+}
+
+header .nav-sections .nav-links a {
+  display: block;
 }
 
 header .nav-sections .nav-links a:hover {
