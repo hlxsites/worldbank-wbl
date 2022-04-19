@@ -726,6 +726,7 @@
   color: var(--detail-color);
   font-size: var(--body-font-size-xs);
   font-weight: var(--weight-bold);
+  text-transform: uppercase;
 }
 
 .detail em {

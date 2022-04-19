@@ -13,11 +13,29 @@ function buildCard(el) {
   } else {
     card.append(img);
   }
+  const empty = el.querySelectorAll(':empty');
+  empty.forEach((e) => e.remove());
   const body = document.createElement('div');
   body.classList.add('card-body');
   [...el.children].forEach((child) => {
     if (!child.querySelector('picture')) { body.append(child); }
   });
+  const prevDetail = body.querySelector('p:first-child + h2, p:first-child + h3');
+  const postDetail = body.querySelector('h2 + p em, h3 + p em');
+  if (prevDetail) {
+    const p = body.querySelector('p:first-child');
+    const em = p.querySelector('em');
+    if (p.textContent === em.textContent) {
+      p.classList.add('detail', 'card-detail');
+    }
+  }
+  if (postDetail) {
+    const p = body.querySelector('h2 + p, h3 + p');
+    const em = p.querySelector('em');
+    if (p.textContent === em.textContent) {
+      p.classList.add('detail', 'card-detail');
+    }
+  }
   card.append(body);
   return card;
 }

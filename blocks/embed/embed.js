@@ -7,10 +7,17 @@ function calculateHeight() {
   return vh - height;
 }
 
-function buildDataviz(url, height = 480) {
+function buildDataviz(url, height = 750) {
   const iframe = document.createElement('iframe');
   iframe.src = url;
-  iframe.setAttribute('height', height > 480 ? height : 480);
+  iframe.setAttribute('height', height > 750 ? height : 750);
+  return iframe;
+}
+
+function buildFlourish(url, height = 750) {
+  const iframe = document.createElement('iframe');
+  iframe.src = url;
+  iframe.setAttribute('height', height > 750 ? height : 750);
   return iframe;
 }
 
@@ -28,6 +35,9 @@ export default async function decorate(block) {
     const height = calculateHeight();
     if (url.host.includes('dataviz.worldbank')) {
       const embed = buildDataviz(url, height);
+      block.append(embed);
+    } else if (url.host.includes('flo.uri.sh')) {
+      const embed = buildFlourish(url, height);
       block.append(embed);
     }
   }

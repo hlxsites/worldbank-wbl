@@ -13,6 +13,7 @@ main .column-split-container h1 {
   main .column-split-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     max-width: var(--container-width);
     margin: auto;
   }
@@ -24,6 +25,10 @@ main .column-split-container h1 {
 
 main .column-split-wrapper {
   margin-top: var(--spacing-l);
+}
+
+main .column-split-container .content-wrapper {
+  margin-top: 0;
 }
 
 @media (min-width: 992px) {

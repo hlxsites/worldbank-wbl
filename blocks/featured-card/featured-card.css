@@ -37,6 +37,12 @@ main .featured-card .card img {
 /* featured card body */
 main .featured-card .card .card-body {
   padding: var(--spacing-l);
+  font-size: var(--body-font-size-s);
+}
+
+main .featured-card .card .card-body .detail + h2,
+main .featured-card .card .card-body .detail + h3 {
+  margin-top: var(--spacing-xs);
 }
 
 main .featured-card .card h2 a,
