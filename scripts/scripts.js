@@ -145,8 +145,6 @@ export function buildIcon(name, alt = '') {
   return icon;
 }
 
-
-
 /**
  * Decorates a block.
  * @param {Element} block The block element

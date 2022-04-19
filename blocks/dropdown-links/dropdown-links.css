@@ -43,7 +43,7 @@ main .dropdown-options {
 }
 
 main ul.dropdown-options {
-  max-height: 270px;
+  max-height: 244px;
   overflow-y: auto;
 }
 

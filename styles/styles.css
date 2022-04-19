@@ -30,8 +30,8 @@
   /* --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace; */
 
   /* body sizes */
-  --body-font-size-m: 16px;
-  --body-font-size-s: 14px;
+  --body-font-size-m: 14px;
+  --body-font-size-s: 13px;
   --body-font-size-xs: 12px;
   --body-line-height-m: 1.6;
   --body-line-height-s: 1.2;
@@ -119,7 +119,7 @@ h1, h2, h3,
 h4, h5, h6 {
   font-family: var(--heading-font-family);
   /* font-weight: 600; */
-  /* line-height: 1.25; */
+  line-height: 1.25;
   /* margin-top: 1em; */
   /* margin-bottom: .5em; */
 }
@@ -250,7 +250,7 @@ main img {
   }
 }
 
-@media (min-width: 996px) {
+@media (min-width: 992px) {
   :root {
     /* --heading-font-size-xxl: 60px; */
     /* --heading-font-size-xl: 48px; */

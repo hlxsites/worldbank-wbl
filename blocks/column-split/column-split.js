@@ -5,6 +5,7 @@
 export default async function decorate(block) {
   const container = block.parentNode.parentNode;
   const split = document.createElement('div');
+  split.classList.add('content-wrapper');
   [...container.children].forEach((child) => {
     if (![...child.classList].includes('column-split-wrapper')) {
       split.append(child);
