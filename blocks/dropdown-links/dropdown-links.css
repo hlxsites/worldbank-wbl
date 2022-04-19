@@ -22,6 +22,10 @@ main .dropdown-links .dropdown-btn img {
   width: var(--body-font-size-s);
 }
 
+main .dropdown-links-wrapper + .dropdown-links-wrapper { /* adjacent */
+  margin-top: var(--spacing-m);
+}
+
 /* dropdown options */
 main .dropdown-btn[aria-expanded=false] + .dropdown-options {
   display: none;

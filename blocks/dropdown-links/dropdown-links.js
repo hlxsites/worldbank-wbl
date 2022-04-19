@@ -10,10 +10,9 @@ function buildOption(name, path, url) {
   const o = document.createElement('a');
   o.textContent = name;
   const sanitizedPath = path
-    .toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^_a-z0-9]+/g, '-')
+    .replace(/[^_\.a-zA-Z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
   o.href = new URL(`${url}${sanitizedPath}`);
   const li = document.createElement('li');
@@ -66,6 +65,7 @@ function filterDropdown(e) {
 export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
+  console.log(config);
 
   // build button
   const btn = document.createElement('a');
@@ -105,10 +105,18 @@ export default async function decorate(block) {
     wrapper.prepend(filter, icon);
     const economies = await fetchEconomies();
     economies.forEach((e) => {
-      const option = buildOption(e.Name, e.EconomyUrlName, config.url);
+      const option = buildOption(e.Name, e.EconomyUrlName.toLowerCase(), config.url);
       options.append(option);
     });
     wrapper.append(options);
     block.append(wrapper);
+  } else if (config.type.toLowerCase() === 'country') {
+    const economies = await fetchEconomies();
+    economies.forEach((e) => {
+      const segments = e.Name.replace(/\./g, '').split(' ').map((w, i) => (i !== 0 ? w.toLowerCase() : w));
+      const option = buildOption(e.Name, `${segments.join('-')}.pdf`, config.url);
+      options.append(option);
+    });
+    block.append(options);
   }
 }
