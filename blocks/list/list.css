@@ -55,6 +55,10 @@ main .list .list-row-2-col .list-col:first-of-type {
   margin-right: var(--spacing-m);
 }
 
+main .list .list-row-2-col .list-col:first-of-type p {
+  margin-top: 0;
+}
+
 main .list .list-row-2-col .list-col:last-of-type {
   flex: 1 0;
 }

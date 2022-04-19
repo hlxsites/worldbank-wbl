@@ -65,7 +65,6 @@ function filterDropdown(e) {
 export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
-  console.log(config);
 
   // build button
   const btn = document.createElement('a');
