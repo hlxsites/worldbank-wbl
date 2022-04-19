@@ -79,7 +79,7 @@ footer .footer .footer-fraud li:not(:last-child)::after {
 
 @media (min-width: 476px) {
   footer .footer .footer-partnership {
-    margin-top: 4.5px;
+    margin-top: 3px;
   }
 
   footer .footer .footer-partnership::before {
