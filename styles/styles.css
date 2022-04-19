@@ -120,7 +120,11 @@ header.collapsed {
 }
 
 main {
-  min-height: calc(100vh - 52px);
+  min-height: calc(100vh - 102px);
+}
+
+header.collapsed + main {
+  min-height: calc(100vh - 68px);
 }
 
 h1, h2, h3,
@@ -147,6 +151,7 @@ p, dl, ol, ul, pre, blockquote {
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
+  word-break: break-word;
 }
 
 a:hover {
