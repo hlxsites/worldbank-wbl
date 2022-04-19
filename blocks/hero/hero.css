@@ -145,13 +145,7 @@ main .hero .hero-overlay .hero-btn-wrapper {
 }
 
 main .hero .hero-overlay .hero-btn {
-    display: inline-block;
-    padding: var(--spacing-s);
     background: var(--overlay-link-color);
-    color: var(--background-color);
-    font-size: var(--detail-font-size-s);
-    font-weight: var(--weight-semibold);
-    text-decoration: none;
     text-transform: uppercase;
 }
 
