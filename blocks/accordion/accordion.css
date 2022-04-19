@@ -1,0 +1,46 @@
+:root {
+  --accordion-border-color: #D8E6F6;
+}
+
+main .accordion .accordion-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-s);
+  margin-bottom: 0;
+  border: 1px solid var(--accordion-border-color);
+  padding: var(--spacing-s) var(--spacing-m);
+  background: var(--detail-background-color);
+  color: var(--link-color);
+  font-size: var(--body-font-size-s);
+  font-weight: var(--weight-normal);
+  cursor: pointer;
+}
+
+main .accordion .accordion-head:hover,
+main .accordion .accordion-head:focus {
+  color: var(--link-hover-color);
+}
+
+main .accordion .accordion-head img {
+  flex-shrink: 0;
+  height: 14px;
+  width: 14px;
+  margin-left: var(--spacing-xs);
+  transition: transform .2s;
+}
+
+main .accordion .accordion-head[aria-expanded=true] img {
+  transform: rotate(-180deg);
+}
+
+main .accordion .accordion-head[aria-expanded=false] + div {
+  display: none;
+  visibility: hidden;
+}
+
+main .accordion .accordion-body {
+  border: 1px solid var(--accordion-border-color);
+  border-top: 0;
+  padding: var(--spacing-s) var(--spacing-m);
+}
