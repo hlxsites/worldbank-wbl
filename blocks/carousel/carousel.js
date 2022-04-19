@@ -57,7 +57,10 @@ export default async function decorate(block) {
   slides.forEach((slide) => {
     slide.classList.add('carousel-slide');
     [...slide.firstChild.children].forEach((child) => {
-      if (child.querySelector('picture')) {
+      if ((slide.textContent === child.textContent) && child.nodeName === 'PICTURE') {
+        slide.classList.add('carousel-slide-img');
+      } else if (child.querySelector('picture')) {
+        slide.classList.add('carousel-slide-card');
         child.outerHTML = child.outerHTML.replace('<p>', '').replace('</p>', '');
       } else if (child.querySelector('picture + h2 > a, picture + h3 > a')) {
         const linkedHeading = child.querySelector('picture + h2 > a, picture + h3 > a');

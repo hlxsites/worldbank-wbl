@@ -1,6 +1,6 @@
 main .dropdown-links {
-  /* border: 2px solid red; */
   position: relative;
+  font-size: var(--body-font-size-s);
 }
 
 main .dropdown-links a {
