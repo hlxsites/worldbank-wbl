@@ -362,6 +362,7 @@ header .nav-sections .nav-links li {
 }
 
 header .nav-sections .nav-links a:hover {
+  color: var(--link-hover-color);
   text-decoration: none;
 }
 

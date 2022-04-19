@@ -39,6 +39,7 @@ main .hero .hero-slide {
     flex-direction: column;
     width: 100%;
     flex-shrink: 0;
+    overflow-y: hidden;
 }
 
 @media (min-width: 576px) {
