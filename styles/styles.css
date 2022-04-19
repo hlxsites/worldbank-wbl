@@ -120,11 +120,11 @@ header.collapsed {
 }
 
 main {
-  min-height: calc(100vh - 102px);
+  min-height: calc(100vh - 102px - 73px);
 }
 
 header.collapsed + main {
-  min-height: calc(100vh - 68px);
+  min-height: calc(100vh - 68px - 73px);
 }
 
 h1, h2, h3,
