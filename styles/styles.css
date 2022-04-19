@@ -120,8 +120,8 @@ h4, h5, h6 {
   font-family: var(--heading-font-family);
   /* font-weight: 600; */
   line-height: 1.25;
-  /* margin-top: 1em; */
-  /* margin-bottom: .5em; */
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-s);
 }
 
 h1 { font-size: var(--heading-font-size-xxl) }
