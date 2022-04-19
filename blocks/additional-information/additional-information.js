@@ -39,10 +39,8 @@ function setupStayConnected(el) {
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  console.log('hi from', block);
   const sectionNames = ['title', ...[...block.querySelectorAll('h3')].map(((h3) => toClassName(h3.textContent)))];
   [...block.children].forEach((section, i) => {
-    console.log('section:', section);
     section.classList.add(sectionNames[i]);
   });
   // setup experts section
