@@ -2,6 +2,25 @@ main .list {
   font-size: var(--body-font-size-s);
 }
 
+@media (min-width: 992px) {
+  main .list.list--2-column- {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  main .list.list--2-column- .list-row {
+    flex: 0 0 calc(50% - var(--spacing-s));
+  }
+
+  main .list.list--2-column- .list-row:nth-of-type(odd) {
+    margin-right: var(--spacing-s);
+  }
+
+  main .list.list--2-column- .list-row:nth-of-type(even) {
+    margin-left: var(--spacing-s);
+  }
+}
+
 main .list h2,
 main .list h3 {
   margin: var(--spacing-s) 0;
