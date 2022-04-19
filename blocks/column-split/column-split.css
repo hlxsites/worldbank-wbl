@@ -1,8 +1,24 @@
+main .column-split-container h1 {
+  padding: 0 var(--spacing-s);
+}
+
+@media (min-width: 768px) {
+  main .column-split-container h1 {
+    width: var(--container-width);
+    margin: auto;
+  }
+}
+
 @media (min-width: 992px) {
   main .column-split-container {
     display: flex;
+    flex-wrap: wrap;
     max-width: var(--container-width);
     margin: auto;
+  }
+
+  main .column-split-container h1 {
+    flex-basis: 100%;
   }
 }
 
@@ -13,13 +29,13 @@ main .column-split-wrapper {
 @media (min-width: 992px) {
   main .column-split-container .column-split-wrapper {
     width: unset;
-    flex: 0 1 calc(100% / 3);
+    flex: 0 1 calc((100% / 3) - var(--spacing-l));
     margin-top: 0;
     margin-left: var(--spacing-l);
   }
 
   main .column-split-container .content-wrapper {
-    flex: 1 0 calc(100% * 2/3);
+    flex: 1 0 calc((100% * 2/3) - var(--spacing-l));
   }
 }
 
@@ -33,11 +49,11 @@ main .column-split {
   }
 }
 
+main .column-split > div:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+}
+
 main .column-split h2 {
   font-size: var(--heading-font-size-s);
   text-transform: uppercase;
-}
-
-main .column-split a {
-  font-size: var(--body-font-size-s);
 }

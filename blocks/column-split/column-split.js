@@ -12,4 +12,8 @@ export default async function decorate(block) {
     }
   });
   container.prepend(split);
+  const h1 = container.querySelector('h1');
+  if (h1) {
+    container.prepend(h1);
+  }
 }
