@@ -1,3 +1,7 @@
+main .list {
+  font-size: var(--body-font-size-s);
+}
+
 main .list h2,
 main .list h3 {
   margin: var(--spacing-s) 0;
@@ -14,5 +18,24 @@ main .list .list-row {
 }
 
 main .list .list-row {
+  width: 100%;
   padding: var(--spacing-l) 0;
+}
+
+main .list .list-row-2-col {
+  display: flex;
+}
+
+main .list .list-row-2-col h2,
+main .list .list-row-2-col h3 {
+  margin-top: 0;
+}
+
+main .list .list-row-2-col .list-col:first-of-type {
+  flex: 0 0 110px;
+  margin-right: var(--spacing-m);
+}
+
+main .list .list-row-2-col .list-col:last-of-type {
+  flex: 1 0;
 }

@@ -32,7 +32,8 @@ export default async function decorate(block) {
         }
       });
     });
-    // if (columns.length === 1) { // single column layout
-    // }
+    if (columns.length === 2) { // two column layout
+      row.classList.add('list-row-2-col');
+    }
   });
 }
