@@ -1,0 +1,45 @@
+main .featured-card .card {
+  border: 1px solid var(--border-color);
+}
+
+@media (min-width: 992px) {
+  main .featured-card .card {
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* featured card img */
+main .featured-card .card picture {
+  display: block;
+  position: relative;
+  height: calc(100vw * .515);
+}
+
+@media (min-width: 992px) {
+  main .featured-card .card .card-img-wrapper {
+    flex: 0 0 50%;
+  }
+
+  main .featured-card .card picture {
+    width: 100%;
+    height: calc(50vw * .515);
+  }
+}
+
+main .featured-card .card img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* featured card body */
+main .featured-card .card .card-body {
+  padding: var(--spacing-l);
+}
+
+main .featured-card .card h2 a,
+main .featured-card .card h3 a {
+  color: var(--text-color);
+}
