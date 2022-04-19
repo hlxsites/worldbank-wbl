@@ -25,15 +25,7 @@ export default async function decorate(block) {
           p.classList.add('detail', 'list-detail');
         }
       }
-      const pa = column.querySelector('p a');
       const as = column.querySelectorAll('a');
-      if (pa) {
-        const p = pa.parentNode;
-        if (p.textContent === pa.textContent) {
-          p.classList.add('list-btn-wrapper');
-          pa.classList.add('btn', 'list-btn');
-        }
-      }
       as.forEach((a) => {
         if (a.parentNode.nodeName === 'DIV') {
           a.classList.add('btn', 'list-btn');
