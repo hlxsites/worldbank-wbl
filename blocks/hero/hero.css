@@ -146,8 +146,15 @@ main .hero .hero-overlay .hero-btn-wrapper {
 
 main .hero .hero-overlay .hero-btn {
     background: var(--overlay-link-color);
+    color: var(--background-color);
     text-transform: uppercase;
 }
+
+main .hero .hero-overlay .hero-btn::after {
+    content: '';
+    padding: 0;
+}
+
 
 main .hero .hero-overlay .hero-btn:hover {
     background: var(--overlay-link-hover-color);

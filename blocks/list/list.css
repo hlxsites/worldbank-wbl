@@ -16,21 +16,3 @@ main .list .list-row {
 main .list .list-row {
   padding: var(--spacing-l) 0;
 }
-
-main .list .list-btn {
-  background: var(--background-color);
-  color: var(--link-color);
-  font-size: var(--body-font-size-m);
-}
-
-main .list .list-btn:hover {
-  background: var(--background-color);
-  color: var(--link-hover-color);
-}
-
-main .list .list-btn::after {
-  content: '\203A';
-  padding-left: var(--spacing-s);
-  font-size: var(--heading-font-size-m);
-  line-height: .6;
-}
