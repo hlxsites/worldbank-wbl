@@ -148,6 +148,7 @@ main .hero .hero-overlay .hero-btn-wrapper {
 main .hero .hero-overlay .hero-btn {
     background: var(--overlay-link-color);
     color: var(--background-color);
+    font-size: var(--body-font-size-s);
     text-transform: uppercase;
 }
 

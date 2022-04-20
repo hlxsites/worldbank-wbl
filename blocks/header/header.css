@@ -2,7 +2,6 @@
   --hamburger-color: #EC553A;
 
   --brand-size: 12px;
-  --heading-size: 12px;
 }
 
 @media (min-width: 476px) {
@@ -182,7 +181,7 @@ header .nav-language-switch {
   border-right: 1px solid var(--border-color);
   padding-right: var(--spacing-s);
   color: var(--detail-color);
-  font-size: var(--heading-size);
+  font-size: var(--body-font-size-xs);
   font-weight: var(--weight-semibold);
 }
 
@@ -227,21 +226,22 @@ header .nav-language-switch #language-btn span {
 }
 
 header .nav-language-switch #language-btn img {
-  height: var(--heading-size);
-  width: var(--heading-size);
+  height: var(--body-font-size-s);
+  width: var(--body-font-size-s);
   margin-left: var(--spacing-xxs);
 }
 
 header .nav-language-switch .nav-language-switch-options {
   position: absolute;
-  top: calc(var(--heading-size) * 2);
+  top: calc(var(--body-font-size-s) * 2);
   right: 0;
+  width: max-content;
   margin: 0;
   padding: 0;
-  list-style: none;
   background: var(--background-color);
   border: 1px solid var(--border-color);
   box-shadow: var(--box-shadow);
+  list-style: none;
 }
 
 header .nav-language-switch .nav-language-switch-options li {
@@ -328,7 +328,7 @@ header .nav-sections .nav-links {
   padding: var(--spacing-m);
   background: var(--detail-background-color);
   padding: var(--spacing-m);
-  font-size: var(--heading-size);
+  font-size: var(--body-font-size-s);
   font-weight: var(--weight-semibold);
   text-transform: uppercase;
   list-style: none;
@@ -358,11 +358,7 @@ header .nav-sections .nav-links li {
   }
 
   header .nav-sections .nav-links li:not(:last-child) {
-    margin-right: var(--spacing-m);
-  }
-  
-  header .nav-sections .nav-links a {
-    color: var(--background-color);
+    margin-right: var(--spacing-s);
   }
 }
 
@@ -373,6 +369,18 @@ header .nav-sections .nav-links a {
 header .nav-sections .nav-links a:hover {
   color: var(--link-hover-color);
   text-decoration: none;
+}
+
+@media (min-width: 992px) {
+  header .nav-sections .nav-links a {
+    color: var(--background-color);
+    padding: 0 var(--spacing-xs);
+  }
+  
+  header .nav-sections .nav-links a:hover {
+    background: var(--link-hover-color);
+    color: var(--background-color);
+  }
 }
 
 header .nav[aria-expanded=true] .nav-sections {
