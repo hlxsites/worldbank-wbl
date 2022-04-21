@@ -1,0 +1,6 @@
+main .indicator-data .indicator-data-results {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-s);
+  color: var(--text-color);
+  text-transform: unset;
+}

@@ -85,6 +85,32 @@ export function loadCSS(href, callback) {
 }
 
 /**
+ * loads a script by adding a script tag to the head.
+ * @param {string} url URL of the js file
+ * @param {Function} callback callback on load
+ * @param {string} type type attribute of script tag
+ * @returns {Element} script element
+ */
+export function loadScript(url, callback, type) {
+  const head = document.querySelector('head');
+  const script = document.createElement('script');
+  script.src = url;
+  if (type) { script.type = type; }
+  head.append(script);
+  script.onload = callback;
+  return script;
+}
+
+export async function loadCharts() {
+  try {
+    await loadScript('https://www.gstatic.com/charts/loader.js');
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log('failed to load charts', err);
+  }
+}
+
+/**
  * Retrieves the content of a metadata tag.
  * @param {string} name The metadata name (or property)
  * @returns {string} The metadata value

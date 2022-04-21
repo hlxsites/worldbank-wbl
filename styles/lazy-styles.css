@@ -754,3 +754,50 @@ a.btn::after {
 a.btn:hover {
   color: var(--link-hover-color);
 }
+
+.block table {
+  width: 100%;
+  max-width: 1170px;
+  border-collapse: collapse;
+  font-family: inherit;
+  font-size: var(--body-font-size-xs);
+  text-align: left;
+  overflow-x: auto;
+}
+
+.block table thead tr {
+  background-color: var(--background-color);
+}
+
+.block table tbody tr {
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.block table th {
+  min-width: 100px;
+  max-width: 140px;
+  white-space: normal;
+}
+
+.block table th span::after {
+  color: var(--link-color);
+}
+
+.block table th, .block table td {
+  border: 0;
+  padding: var(--spacing-s);
+  text-align: left;
+  text-overflow: initial;
+  vertical-align: text-top;
+}
+
+/* google charts overrides */
+.block table .google-visualization-table-tr-over { /* hovered row */
+  background-color: var(--detail-background-color);
+  cursor: pointer;
+}
+
+.block table .google-visualization-table-tr-sel { /* selected row */
+  background-color: #F6F7FD;
+}
