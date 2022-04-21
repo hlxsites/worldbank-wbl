@@ -86,7 +86,11 @@ export default async function decorate(block) {
     const indicators = await fetchIndicators();
     indicators.forEach((i) => {
       if (i.IndicatorCode !== 'WBL_ALL') {
-        const option = buildOption(i.IndicatorPublishedName, i.IndicatorCode, config.url);
+        const option = buildOption(
+          i.IndicatorPublishedName,
+          i.IndicatorCode.toLowerCase().replace('_', '-'),
+          config.url,
+        );
         options.append(option);
       }
     });
@@ -117,5 +121,18 @@ export default async function decorate(block) {
       options.append(option);
     });
     block.append(options);
+  }
+
+  const wrapper = block.parentElement;
+  if (wrapper?.nextElementSibling) {
+    const or = (wrapper.nextElementSibling.textContent.toLowerCase() === 'or')
+      && (wrapper.parentNode.children.length === 3);
+    // setup layout for two dropdowns separated by OR
+    if (or) {
+      const p = wrapper.nextElementSibling.querySelector('p');
+      if (p) { p.classList.add('detail', 'or-detail'); }
+      const container = wrapper.parentElement;
+      container.classList.add('dropdown-links-or');
+    }
   }
 }

@@ -1,3 +1,30 @@
+@media (min-width: 992px) {
+  main .dropdown-links-container.dropdown-links-or {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    max-width: var(--container-width);
+    margin: auto;
+  }
+
+  main .dropdown-links-container.dropdown-links-or > *:not(.dropdown-links-wrapper) {
+    flex-basis: max-content;
+    margin: 0;
+  }
+}
+
+main .dropdown-links-container.dropdown-links-or .or-detail {
+  margin: var(--spacing-s) 0;
+  text-align: center;
+}
+
+@media (min-width: 992px) {
+  main .dropdown-links-container.dropdown-links-or .dropdown-links-wrapper {
+    max-width: 360px;
+    margin: 0;
+  }
+}
+
 main .dropdown-links {
   position: relative;
   font-size: var(--body-font-size-s);

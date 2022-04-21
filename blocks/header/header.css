@@ -323,7 +323,7 @@ header .nav-sections {
 
 /* nav links */
 header .nav-sections .nav-links {
-  max-height: 394px;
+  max-height: 426px;
   margin: 0;
   padding: var(--spacing-m);
   background: var(--detail-background-color);
