@@ -2,6 +2,7 @@ import {
   buildIcon,
   fetchEconomies,
   fetchIndicators,
+  getMetadata,
   readBlockConfig,
   toCamelCase,
 } from '../../scripts/scripts.js';
@@ -12,7 +13,7 @@ function buildOption(name, path, url) {
   const sanitizedPath = path
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^_\.a-zA-Z0-9]+/g, '-')
+    .replace(/[^_\.\/a-zA-Z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
   o.href = new URL(`${url}${sanitizedPath}`);
   const li = document.createElement('li');
@@ -64,6 +65,7 @@ function filterDropdown(e) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
+  const category = getMetadata('category');
   block.textContent = '';
 
   // build button
@@ -108,7 +110,11 @@ export default async function decorate(block) {
     wrapper.prepend(filter, icon);
     const economies = await fetchEconomies();
     economies.forEach((e) => {
-      const option = buildOption(e.Name, e.EconomyUrlName.toLowerCase(), config.url);
+      let path = e.EconomyUrlName.toLowerCase();
+      if (category === 'Explore Economies' || category === 'Explore Topics') {
+        path += `/${new Date().getFullYear()}`;
+      }
+      const option = buildOption(e.Name, path, config.url);
       options.append(option);
     });
     wrapper.append(options);
