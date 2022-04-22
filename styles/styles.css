@@ -172,6 +172,10 @@ pre {
   /* overflow: scroll; */
 }
 
+figure {
+  margin: unset;
+}
+
 main input, main button {
   box-sizing: border-box;
   display: block;

@@ -1,0 +1,251 @@
+:root {
+  --chart-odd-color: #F88D28;
+  --chart-odd-border: #C77020;
+  --chart-even-color: #1D3469;
+  --chart-even-color: #172A53;
+}
+
+/* ECONOMY DATA OVERVIEW */
+main .economy-data .economy-data-overview {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-m);
+}
+
+@media (min-width: 992px) {
+  main .economy-data .economy-data-overview {
+    display: grid; 
+    grid-auto-columns: 1fr; 
+    grid-template-columns: 2fr 1fr; 
+    grid-template-rows: auto auto; 
+    gap: 0px 16px; 
+    grid-template-areas: 
+      "table chart"
+      "buttons chart"; 
+  }
+}
+
+/* economy data overview table */
+main .economy-data .economy-data-overview-table {
+  grid-area: table;
+  margin-bottom: var(--spacing-m);
+}
+
+main .economy-data .economy-data-overview-table tr td {
+  display: inline-block;
+}
+
+main .economy-data .economy-data-overview-table tr td:first-child {
+  font-weight: var(--weight-bold);
+}
+
+
+/* economy data overview buttons */
+main .economy-data .economy-data-overview-btn-wrapper {
+  grid-area: buttons;
+  margin-bottom: var(--spacing-m);
+}
+
+@media (min-width: 576px) {
+  main .economy-data .economy-data-overview-btn-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+main .economy-data .economy-data-overview-btn-wrapper > *:not(:last-of-type) {
+  margin-bottom: var(--spacing-s);
+}
+
+@media (min-width: 576px) {
+  main .economy-data .economy-data-overview-btn-wrapper > *:not(:last-of-type) {
+    margin-right: var(--spacing-s);
+    margin-bottom: 0;
+  }
+}
+
+main .economy-data .economy-data-overview-btn {
+  display: block;
+  position: relative;
+  min-width: 180px;
+  border: 1px solid var(--border-color);
+  font-size: var(--body-font-size-s);
+}
+
+main .economy-data .economy-data-overview-btn::after {
+  content: '';
+  position: absolute;
+  height: 0;
+  width: 0;
+}
+
+main .economy-data .economy-data-overview-btn span {
+  display: block;
+  text-align: center;
+}
+
+main .economy-data .economy-data-overview-btn .economy-data-overview-btn-size,
+main .economy-data .economy-data-overview-btn .economy-data-overview-btn-downloading {
+  color: var(--detail-color);
+  font-size: var(--body-font-size-xs);
+}
+
+main .economy-data .economy-data-overview-btn .economy-data-overview-btn-size::before,
+main .economy-data .economy-data-overview-btn .economy-data-overview-btn-downloading::before {
+  content: '(';
+}
+
+main .economy-data .economy-data-overview-btn .economy-data-overview-btn-size::after,
+main .economy-data .economy-data-overview-btn .economy-data-overview-btn-downloading::after {
+  content: ')';
+}
+
+main .economy-data .economy-data-overview-btn img {
+  height: 16px;
+  width: 16px;
+}
+
+/* pie chart */
+main .economy-data .economy-data-overview-index-chart {
+  grid-area: chart;
+  text-align: center;
+}
+
+main .economy-data .economy-data-overview-index-chart h3 {
+  font-size: var(--heading-font-size-xs);
+}
+
+@media (min-width: 992px) {
+  main .economy-data .economy-data-overview-index-chart h3 {
+    margin-top: 0;
+  }
+}
+
+main .economy-data .economy-data-overview-index-chart > div > div {
+  margin: 0 auto;
+}
+
+main .economy-data .economy-data-overview-index-chart .economy-data-overview-index-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ECONOMY DATA SNAPSHOT */
+
+/* column chart */
+main .economy-data .economy-data-snapshot-chart {
+  display: flex;
+  align-items: flex-end;
+  /* height: 480px; */
+  overflow-x: hidden;
+}
+
+main .economy-data .economy-data-snapshot-chart-col {
+  flex: 1;
+  margin: 23px 0;
+  font-size: var(--body-font-size-xs);
+  font-weight: bold;
+  text-align: center;
+}
+
+main .economy-data .economy-data-snapshot-chart-bar {
+  display: flex;
+  align-items: flex-end;
+  height: 368px;
+  border-bottom: 1px solid var(--detail-color);
+}
+
+main .economy-data .economy-data-snapshot-chart-col:nth-child(odd) .economy-data-snapshot-chart-bar > div {
+  background: var(--chart-odd-color);
+  border: 1px solid var(--chart-odd-border);
+  border-bottom: 0;
+}
+
+main .economy-data .economy-data-snapshot-chart-col:nth-child(even) .economy-data-snapshot-chart-bar > div {
+  background: var(--chart-even-color);
+  border: 1px solid var(--chart-even-border);
+  border-bottom: 0;
+}
+
+main .economy-data .economy-data-snapshot-chart-bar > div {
+  position: relative;
+  width: 50%;
+  max-width: 46px;
+  margin: 0 auto;
+  animation: expand-from-bottom 1.2s ease-in;
+
+}
+
+@keyframes expand-from-bottom {
+  0% { height: 0 }
+  100% { transform: scaleY(100%) }
+}
+
+main .economy-data .economy-data-snapshot-chart-score {
+  position: absolute;
+  top: -22px; 
+  left: 50%;
+  height: 46px;
+  width: 46px;
+  margin: 0;
+  padding: 0;
+  background: var(--background-color);
+  border: 1px solid var(--detail-color);
+  border-radius: 50%;
+  font-weight: var(--weight-regular);
+  line-height: 46px;
+  transform: translateX(-50%);
+}
+
+main .economy-data .economy-data-snapshot-chart-label {
+  margin-top: 22px;
+  text-align: center;
+}
+
+main .economy-data .economy-data-snapshot-chart-col:nth-child(odd) .economy-data-snapshot-chart-label img {
+  border-color: var(--chart-odd-color);
+}
+
+main .economy-data .economy-data-snapshot-chart-col:nth-child(even) .economy-data-snapshot-chart-label img {
+  border-color: var(--chart-even-color);
+}
+
+main .economy-data .economy-data-snapshot-chart-label img {
+  display: block;
+  width: 100%;
+  max-width: 46px;
+  margin: auto;
+  border: 5px solid;
+  border-radius: 50%;
+  padding: var(--spacing-xs);
+  background: var(--background-color);
+  box-shadow: var(--box-shadow);
+}
+
+@media (min-width: 768px) {
+  main .economy-data .economy-data-snapshot-chart-label img {
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+main .economy-data .economy-data-snapshot-chart-col:nth-child(odd) .economy-data-snapshot-chart-label p {
+  color: var(--chart-odd-color);
+}
+
+main .economy-data .economy-data-snapshot-chart-col:nth-child(even) .economy-data-snapshot-chart-label p {
+  color: var(--chart-even-color);
+}
+
+main .economy-data .economy-data-snapshot-chart-label p {
+  display: none;
+  visibility: hidden;
+}
+
+@media (min-width: 768px) {
+  main .economy-data .economy-data-snapshot-chart-label p {
+    display: initial;
+    visibility: unset;
+  }
+}
