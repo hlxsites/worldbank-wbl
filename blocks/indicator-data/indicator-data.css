@@ -4,3 +4,65 @@ main .indicator-data .indicator-data-results {
   color: var(--text-color);
   text-transform: unset;
 }
+
+/* indicator dropdown */
+main .indicator-data .dropdown-toggle {
+  position: relative;
+  margin: var(--spacing-m) 0;
+  font-size: var(--body-font-size-s);
+}
+
+main .indicator-data .dropdown-toggle a {
+  text-decoration: none;
+}
+
+/* indicator dropdown button */
+main .indicator-data .dropdown-toggle .dropdown-btn {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-xs) var(--spacing-m);
+  background: var(--link-color);
+  color: var(--background-color);
+  cursor: pointer;
+}
+
+main .indicator-data .dropdown-toggle .dropdown-btn img {
+  width: var(--body-font-size-s);
+}
+
+/* indicator dropdown options */
+main .indicator-data .dropdown-toggle .dropdown-btn[aria-expanded=false] + .dropdown-options {
+  display: none;
+  visibility: hidden;
+}
+
+main .indicator-data .dropdown-toggle .dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--link-hover-color);
+  background: var(--link-color);
+  color: var(--background-color);
+  list-style: none;
+  z-index: 3;
+}
+
+main .indicator-data .dropdown-toggle ul.dropdown-options {
+  max-height: 244px;
+  overflow-y: auto;
+}
+
+main .indicator-data .dropdown-toggle .dropdown-options a {
+  display: block;
+  padding: var(--spacing-xs) var(--spacing-m);
+  color: var(--background-color);
+  cursor: pointer;
+}
+
+main .indicator-data .dropdown-toggle .dropdown-options a:hover {
+  background: var(--link-hover-color);
+}
