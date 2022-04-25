@@ -13,6 +13,7 @@ function buildOption(name, path, url) {
   const sanitizedPath = path
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
+    // eslint-disable-next-line no-useless-escape
     .replace(/[^_\.\/a-zA-Z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
   o.href = new URL(`${url}${sanitizedPath}`);
@@ -26,7 +27,7 @@ function closeMenu(el) {
   el.setAttribute('aria-expanded', false);
 }
 
-function closeAllMenus() {
+export function closeAllMenus() {
   const expanded = document.querySelectorAll('.dropdown-btn[aria-expanded="true"]');
   expanded.forEach((ex) => closeMenu(ex));
 }
@@ -36,7 +37,7 @@ function openMenu(el) {
   el.setAttribute('aria-expanded', true);
 }
 
-function toggleMenu(e) {
+export function toggleMenu(e) {
   const btn = e.target.closest('[role="button"]');
   const expanded = btn.getAttribute('aria-expanded') === 'true';
   if (expanded) {
