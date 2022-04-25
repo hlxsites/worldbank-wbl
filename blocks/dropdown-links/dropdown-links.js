@@ -111,10 +111,9 @@ export default async function decorate(block) {
     wrapper.prepend(filter, icon);
     const economies = await fetchEconomies();
     economies.forEach((e) => {
-      let path = e.EconomyUrlName.toLowerCase();
-      if (category === 'Explore Economies' || category === 'Explore Topics') {
-        path += `/${new Date().getFullYear()}`;
-      }
+      const path = !window.location.pathname.includes('/reforms/')
+        ? `${e.EconomyUrlName.toLowerCase()}/${new Date().getFullYear()}`
+        : e.EconomyUrlName.toLowerCase();
       const option = buildOption(e.Name, path, config.url);
       options.append(option);
     });
