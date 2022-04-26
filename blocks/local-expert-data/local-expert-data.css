@@ -1,0 +1,27 @@
+main .local-expert-data .list {
+  font-size: var(--body-font-size-s);
+}
+
+main .local-expert-data .list h2,
+main .local-expert-data .list h3 {
+  margin: var(--spacing-s) 0;
+  font-size: var(--heading-font-size-s);
+}
+
+main .local-expert-data .list h2 a,
+main .local-expert-data .list h3 a {
+  color: var(--text-color);
+}
+
+main .local-expert-data .list p {
+  margin: var(--spacing-xs) 0;
+}
+
+main .local-expert-data .list .list-row {
+  border-bottom: 1px solid var(--border-color);
+}
+
+main .local-expert-data .list .list-row {
+  width: 100%;
+  padding: var(--spacing-l) 0;
+}
