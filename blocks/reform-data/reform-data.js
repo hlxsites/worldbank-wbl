@@ -2,10 +2,21 @@
 import {
   fetchAPI,
   fetchEconomies,
+  fetchIndicators,
   readBlockConfig,
 } from '../../scripts/scripts.js';
 
-function writeTableContent(data, region = '') {
+function sanitizePath(path) {
+  return path
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    // eslint-disable-next-line no-useless-escape
+    .replace(/[^\/a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function writeTableContent(data, economies, indicators) {
   const columns = [
     { title: 'Economy' },
     { title: 'Region' },
@@ -14,14 +25,28 @@ function writeTableContent(data, region = '') {
     { title: 'Type of Reform', type: 'boolean' },
     { title: 'Reform Description' },
   ];
+  const economyCodes = {};
+  const indicatorCodes = {};
   const rows = [];
   data.forEach((d) => {
     const summary = d.ReformSummary;
     const year = summary.split(')')[0].replace(/\D/g, '');
+    const economy = economyCodes[d.EconomyName] ? economyCodes[d.EconomyName]
+      : economies.find((ec) => d.EconomyName === ec.Name);
+    if (!economyCodes[d.EconomyName]) { // add to list for faster lookup
+      economyCodes[d.EconomyName] = { RegionName: economy.RegionName };
+    }
+    const indicator = indicatorCodes[d.IndicatorName] ? indicatorCodes[d.IndicatorName]
+      : indicators.find((i) => i.IndicatorPublishedName === d.IndicatorName);
+    if (!indicatorCodes[d.IndicatorName]) { // add to list  for faster lookup
+      indicatorCodes[d.IndicatorName] = { IndicatorCode: indicator.IndicatorCode };
+    }
+    const economyPath = sanitizePath(`/reforms/economy/${d.EconomyName}`);
+    const indicatorPath = sanitizePath(`/reforms/topic/${indicator.IndicatorCode}`);
     const row = [
-      d.EconomyName, // economy
-      region, // region
-      d.IndicatorName, // indicator
+      `<a href="${economyPath}">${d.EconomyName}</a>`, // economy
+      economy.RegionName, // region
+      `<a href="${indicatorPath}">${d.IndicatorName}</a>`, // indicator
       { f: year, v: parseInt(year, 10) }, // report year
       d.ReformFlag >= 1, // type of reform
       summary.split(' ').slice(1).join(' '), // reform description
@@ -40,11 +65,17 @@ function drawTable(el, cols, rows, specs = {}) {
 
   const config = {
     allowHtml: true,
-    // height: '480px',
+    height: '480px',
     width: '100%',
     frozenColumns: 2,
-    // sort: 'disable',
   };
+
+  if (specs.page) {
+    config.page = 'enable';
+  }
+  if (specs.pageSize) {
+    config.pageSize = specs.pageSize;
+  }
 
   const table = new google.visualization.Table(el);
   table.draw(data, config);
@@ -66,13 +97,34 @@ export default async function decorate(block) {
   block.classList.add('data-loading');
 
   const economies = await fetchEconomies();
+  const indicators = await fetchIndicators();
   if (config.economy) {
     const economy = economies.find((ec) => config.economy === ec.Name);
     const data = await fetchAPI(`/year/2020/reform?$orderby=ReformSummary%20desc&economyCode=${economy.EconomyCode}`);
-    const content = writeTableContent(data, economy.RegionName);
+    const content = writeTableContent(data, economies, indicators);
     const table = document.createElement('div');
     table.classList.add('reform-data-table');
     drawTable(table, content.columns, content.rows);
+    block.classList.remove('data-loading');
+    block.append(table);
+  } else if (config.indicator) {
+    const indicator = indicators.find((i) => i.IndicatorPublishedName === config.indicator);
+    const data = await fetchAPI(`/year/2020/reform?$orderby=ReformSummary%20desc&indicatorCode=${indicator.IndicatorCode}`);
+    const content = writeTableContent(data, economies, indicators);
+    const table = document.createElement('div');
+    table.classList.add('reform-data-table');
+    drawTable(table, content.columns, content.rows);
+    block.classList.remove('data-loading');
+    block.append(table);
+  } else { // no config
+    const data = await fetchAPI('/year/2020/reform?$orderby=EconomyName');
+    const content = writeTableContent(data, economies, indicators);
+    const table = document.createElement('div');
+    table.classList.add('reform-data-table');
+    drawTable(table, content.columns, content.rows, {
+      page: true,
+      pageSize: 15,
+    });
     block.classList.remove('data-loading');
     block.append(table);
   }

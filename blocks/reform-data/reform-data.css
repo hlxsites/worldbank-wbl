@@ -1,0 +1,29 @@
+main .reform-data {
+  min-height: calc(480px + 28px);
+}
+
+/* reforms filter */
+main .reform-data .reform-data-filter-wrapper {
+  position: relative;
+  margin-bottom: var(--spacing-m);
+}
+
+main .reform-data .reform-data-filter-wrapper img {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-m);
+  height: var(--body-font-size-m);
+  width: var(--body-font-size-m);
+  transform: translateY(-50%);
+}
+
+main .reform-data .reform-data-filter {
+  width: 100%;
+  border-color: var(--border-color);
+}
+
+main .reform-data .reform-data-filter:focus,
+main .reform-data .reform-data-filter:hover {
+  border-color: var(--link-color);
+}
+
