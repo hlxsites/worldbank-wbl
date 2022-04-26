@@ -78,11 +78,6 @@ main ul.dropdown-options {
   overflow-y: auto;
 }
 
-main .dropdown-options .dropdown-option.hide {
-  display: none;
-  visibility: hidden;
-}
-
 main .dropdown-options a {
   display: block;
   padding: var(--spacing-xs) var(--spacing-m);
@@ -117,3 +112,7 @@ main .dropdown-filter:hover {
   border-color: var(--link-hover-color);
 }
 
+main .dropdown-options .dropdown-option.hide {
+  display: none;
+  visibility: hidden;
+}

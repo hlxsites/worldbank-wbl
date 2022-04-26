@@ -111,7 +111,7 @@ export default async function decorate(block) {
     wrapper.prepend(filter, icon);
     const economies = await fetchEconomies();
     economies.forEach((e) => {
-      const path = !window.location.pathname.includes('/reforms/')
+      const path = !window.location.pathname.includes('/reforms')
         ? `${e.EconomyUrlName.toLowerCase()}/${new Date().getFullYear()}`
         : e.EconomyUrlName.toLowerCase();
       const option = buildOption(e.Name, path, config.url);
