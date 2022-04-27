@@ -1,0 +1,108 @@
+main .questionnaire-data .questionnaire-btn {
+  background: var(--link-color);
+  color: var(--background-color);
+  font-size: var(--body-font-size-s);
+  text-transform: uppercase;
+}
+
+main .questionnaire-data .questionnaire-btn:hover {
+  background: var(--link-hover-color);
+  color: var(--background-color);
+}
+
+main .questionnaire-data .questionnaire-data-table {
+  margin-top: var(--spacing-m);
+}
+
+/* questionnaire dropdown */
+@media (min-width: 992px) {
+  main .questionnaire-data .dropdown-wrapper {
+    margin-bottom: var(--spacing-m);
+    display: flex;
+  }
+
+  main .questionnaire-data .dropdown-wrapper .dropdown-toggle {
+    width: 100%;
+    margin: 0 var(--spacing-s);
+  }
+
+  main .questionnaire-data .dropdown-wrapper .dropdown-toggle:first-of-type {
+    margin-left: 0;
+  }
+
+  main .questionnaire-data .dropdown-wrapper .dropdown-toggle:last-of-type {
+    margin-right: 0;
+  }
+}
+
+main .questionnaire-data .dropdown-toggle {
+  position: relative;
+  margin: var(--spacing-m) 0;
+  font-size: var(--body-font-size-s);
+}
+
+main .questionnaire-data .dropdown-toggle a {
+  text-decoration: none;
+}
+
+/* questionnaire dropdown button */
+main .questionnaire-data .dropdown-toggle .dropdown-btn {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-xs) var(--spacing-m);
+  background: var(--link-color);
+  color: var(--background-color);
+  cursor: pointer;
+}
+
+main .questionnaire-data .dropdown-toggle .dropdown-btn.unselected {
+  box-shadow: 0 0 0 var(--spacing-s) transparent;
+  animation: pulse 1s;
+}
+
+@keyframes pulse {
+  0% { 
+    box-shadow: 0 0 0 0 var(--link-color);
+  }
+}
+
+main .questionnaire-data .dropdown-toggle .dropdown-btn img {
+  width: var(--body-font-size-s);
+}
+
+/* questionnaire dropdown options */
+main .questionnaire-data .dropdown-toggle .dropdown-btn[aria-expanded=false] + .dropdown-options {
+  display: none;
+  visibility: hidden;
+}
+
+main .questionnaire-data .dropdown-toggle .dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--link-hover-color);
+  background: var(--link-color);
+  color: var(--background-color);
+  list-style: none;
+  z-index: 3;
+}
+
+main .questionnaire-data .dropdown-toggle ul.dropdown-options {
+  max-height: 244px;
+  overflow-y: auto;
+}
+
+main .questionnaire-data .dropdown-toggle .dropdown-options a {
+  display: block;
+  padding: var(--spacing-xs) var(--spacing-m);
+  color: var(--background-color);
+  cursor: pointer;
+}
+
+main .questionnaire-data .dropdown-toggle .dropdown-options a:hover {
+  background: var(--link-hover-color);
+}
