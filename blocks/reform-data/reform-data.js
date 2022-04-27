@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 import {
+  buildLoadingScreen,
+  removeLoadingScreen,
   fetchAPI,
   fetchEconomies,
   fetchIndicators,
@@ -94,38 +96,43 @@ function drawTable(el, cols, rows, specs = {}) {
 export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
-  block.classList.add('data-loading');
+  buildLoadingScreen();
 
   const economies = await fetchEconomies();
   const indicators = await fetchIndicators();
-  if (config.economy) {
-    const economy = economies.find((ec) => config.economy === ec.Name);
-    const data = await fetchAPI(`/year/2020/reform?$orderby=ReformSummary%20desc&economyCode=${economy.EconomyCode}`);
-    const content = writeTableContent(data, economies, indicators);
-    const table = document.createElement('div');
-    table.classList.add('reform-data-table');
-    drawTable(table, content.columns, content.rows);
-    block.classList.remove('data-loading');
-    block.append(table);
-  } else if (config.indicator) {
-    const indicator = indicators.find((i) => i.IndicatorPublishedName === config.indicator);
-    const data = await fetchAPI(`/year/2020/reform?$orderby=ReformSummary%20desc&indicatorCode=${indicator.IndicatorCode}`);
-    const content = writeTableContent(data, economies, indicators);
-    const table = document.createElement('div');
-    table.classList.add('reform-data-table');
-    drawTable(table, content.columns, content.rows);
-    block.classList.remove('data-loading');
-    block.append(table);
-  } else { // no config
-    const data = await fetchAPI('/year/2020/reform?$orderby=EconomyName');
-    const content = writeTableContent(data, economies, indicators);
-    const table = document.createElement('div');
-    table.classList.add('reform-data-table');
-    drawTable(table, content.columns, content.rows, {
-      page: true,
-      pageSize: 15,
-    });
-    block.classList.remove('data-loading');
-    block.append(table);
+  try {
+    if (config.economy) {
+      const economy = economies.find((ec) => config.economy === ec.Name);
+      const data = await fetchAPI(`/year/2020/reform?$orderby=ReformSummary%20desc&economyCode=${economy.EconomyCode}`);
+      const content = writeTableContent(data, economies, indicators);
+      const table = document.createElement('div');
+      table.classList.add('reform-data-table');
+      drawTable(table, content.columns, content.rows);
+
+      block.append(table);
+    } else if (config.indicator) {
+      const indicator = indicators.find((i) => i.IndicatorPublishedName === config.indicator);
+      const data = await fetchAPI(`/year/2020/reform?$orderby=ReformSummary%20desc&indicatorCode=${indicator.IndicatorCode}`);
+      const content = writeTableContent(data, economies, indicators);
+      const table = document.createElement('div');
+      table.classList.add('reform-data-table');
+      drawTable(table, content.columns, content.rows);
+
+      block.append(table);
+    } else { // no config
+      const data = await fetchAPI('/year/2020/reform?$orderby=EconomyName');
+      const content = writeTableContent(data, economies, indicators);
+      const table = document.createElement('div');
+      table.classList.add('reform-data-table');
+      drawTable(table, content.columns, content.rows, {
+        page: true,
+        pageSize: 15,
+      });
+
+      block.append(table);
+    }
+  } catch (err) {
+    block.insertAdjacentHTML('beforeend', '<p><strong>Reform data could not be displayed</strong></p>');
   }
+  removeLoadingScreen();
 }

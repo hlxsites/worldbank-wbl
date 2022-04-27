@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 import {
   buildIcon,
+  buildLoadingScreen,
+  removeLoadingScreen,
   fetchAPI,
   fetchEconomies,
   fetchIndicators,
@@ -124,62 +126,67 @@ function buildDropdownToggle(values, code) {
 export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
-  block.classList.add('data-loading');
-  const indicators = await fetchIndicators();
+  buildLoadingScreen();
 
-  if (config.indicator) {
-    // fetch table data
-    const { IndicatorCode } = indicators.find((i) => config.indicator === i.IndicatorPublishedName);
-    const code = IndicatorCode.toLowerCase();
-    const [{ IndicatorDataPoints: questions }] = await fetchAPI(`/indicator/${code}/year/${config.year}/indicatordatapoints`);
-    const columns = ['Economy', 'Region', ...questions.map((q) => q.IndicatorDataPointName)];
-    const answersByEconomy = await fetchAPI(`/indicator/${code}/year/${config.year}/indicatoreconomydatapointvalues/multilevel`);
-    const rows = [];
-    answersByEconomy.forEach((economy) => {
-      const row = [
-        `<a href="/data/exploreeconomies/${economy.EconomyUrlName}/${config.year}">${economy.EconomyName}</a>`,
-        economy.RegionCode,
-        ...economy.DataPointValues.map((v) => v.Value || ''),
-      ];
-      rows.push(row);
-    });
-    // draw table
-    const table = document.createElement('div');
-    table.classList.add('indicator-data-table');
-    drawTable(table, columns, rows, {
-      frozenColumns: 2,
-      height: 480,
-      results: true,
-      sort: true,
-    });
-    block.append(table);
-    block.classList.remove('data-loading');
-  } else if (config.economy) {
-    // add title
-    const title = document.createElement('h2');
-    title.textContent = 'Indicator Data';
-    block.append(title);
-    // build dropdown
-    const options = [];
-    indicators.forEach((i) => {
-      if (i.IndicatorCode !== 'WBL_ALL') {
-        options.push({
-          name: i.IndicatorPublishedName,
-          code: i.IndicatorCode.toLowerCase(),
-        });
-      }
-    });
-    const economies = await fetchEconomies();
-    const { EconomyCode: economyCode } = economies.find((e) => config.economy === e.Name);
-    const dropdown = buildDropdownToggle(options, economyCode);
-    block.append(dropdown);
-    // build table
-    const [data] = await fetchAPI(`/economy/${economyCode}/indicator/${options[0].code}/year/current/indicatordatapointvalues/multilevel`);
-    const content = writeTableContent(data);
-    const table = document.createElement('div');
-    table.classList.add('indicator-data-table');
-    drawTable(table, content.columns, content.rows, { sort: false });
-    block.append(table);
-    block.classList.remove('data-loading');
+  const indicators = await fetchIndicators();
+  try {
+    if (config.indicator) {
+      // fetch table data
+      const { IndicatorCode } = indicators
+        .find((i) => config.indicator === i.IndicatorPublishedName);
+      const code = IndicatorCode.toLowerCase();
+      const [{ IndicatorDataPoints: questions }] = await fetchAPI(`/indicator/${code}/year/${config.year}/indicatordatapoints`);
+      const columns = ['Economy', 'Region', ...questions.map((q) => q.IndicatorDataPointName)];
+      const answersByEconomy = await fetchAPI(`/indicator/${code}/year/${config.year}/indicatoreconomydatapointvalues/multilevel`);
+      const rows = [];
+      answersByEconomy.forEach((economy) => {
+        const row = [
+          `<a href="/data/exploreeconomies/${economy.EconomyUrlName}/${config.year}">${economy.EconomyName}</a>`,
+          economy.RegionCode,
+          ...economy.DataPointValues.map((v) => v.Value || ''),
+        ];
+        rows.push(row);
+      });
+      // draw table
+      const table = document.createElement('div');
+      table.classList.add('indicator-data-table');
+      drawTable(table, columns, rows, {
+        frozenColumns: 2,
+        height: 480,
+        results: true,
+        sort: true,
+      });
+
+      block.append(table);
+    } else if (config.economy) {
+      // add title
+      const title = document.createElement('h2');
+      title.textContent = 'Indicator Data';
+      block.append(title);
+      // build dropdown
+      const options = [];
+      indicators.forEach((i) => {
+        if (i.IndicatorCode !== 'WBL_ALL') {
+          options.push({
+            name: i.IndicatorPublishedName,
+            code: i.IndicatorCode.toLowerCase(),
+          });
+        }
+      });
+      const economies = await fetchEconomies();
+      const { EconomyCode: economyCode } = economies.find((e) => config.economy === e.Name);
+      const dropdown = buildDropdownToggle(options, economyCode);
+      // build table
+      const [data] = await fetchAPI(`/economy/${economyCode}/indicator/${options[0].code}/year/current/indicatordatapointvalues/multilevel`);
+      const content = writeTableContent(data);
+      const table = document.createElement('div');
+      table.classList.add('indicator-data-table');
+      drawTable(table, content.columns, content.rows, { sort: false });
+
+      block.append(dropdown, table);
+    }
+  } catch (err) {
+    block.insertAdjacentHTML('beforeend', '<p><strong>Indicator data could not be displayed</strong></p>');
   }
+  removeLoadingScreen();
 }

@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 import {
   buildIcon,
+  buildLoadingScreen,
+  removeLoadingScreen,
   fetchAPI,
   fetchEconomies,
   fetchIndicators,
@@ -191,58 +193,67 @@ function drawColumnChart(el, values) {
 export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
-  block.classList.add('data-loading');
+  buildLoadingScreen();
+
+  const economies = await fetchEconomies();
+  let indexes = {};
   // OVERVIEW SECTION
   const overview = document.createElement('section');
   overview.classList.add('economy-data-overview');
-  // table
-  const economies = await fetchEconomies();
-  const { EconomyCode: code } = economies.find((e) => config.economy === e.Name);
-  const { Economy: economy } = await fetchAPI(`/economy/${code}/year/current/details`);
-  const economyDetails = economy.EconomyDetails.map((d) => [d.EconomyDetailTypeName, d.Value]);
-  const table = buildTable(economyDetails);
-  table.classList.add('economy-data-overview-table');
-  overview.append(table);
-  // download btns
-  const btnWrapper = document.createElement('div');
-  btnWrapper.classList.add('economy-data-overview-btn-wrapper');
-  if (config['snapshot-url']) {
-    const snapshotBtn = buildDownloadBtn(config, 'snapshot', config['snapshot-url'], config['snapshot-size'] || '');
-    btnWrapper.append(snapshotBtn);
-  }
-  const downloadBtn = buildDownloadBtn(config, 'download');
-  btnWrapper.append(downloadBtn);
-  overview.append(btnWrapper);
-
-  // pie chart
-  const pie = document.createElement('figure');
-  pie.classList.add('economy-data-overview-index-chart');
-  const [{ EconomyIndexes: indexes }] = await fetchAPI(`/economies/indicator/all/year/current/indexes?$filter=EconomyCode eq '${code}'`);
-  const wbl = indexes.find((i) => i.IndicatorCode === 'WBL_ALL');
-  indexes.splice(indexes.indexOf(wbl), 1); // remove wbl index for future data charts
-  drawPieChart(pie, parseFloat(wbl.Value, 10));
-  overview.append(pie);
-
-  block.classList.remove('data-loading');
   block.append(overview);
+  try {
+    // table
+    const { EconomyCode: code } = economies.find((e) => config.economy === e.Name);
+    const { Economy: economy } = await fetchAPI(`/economy/${code}/year/current/details`);
+    const economyDetails = economy.EconomyDetails.map((d) => [d.EconomyDetailTypeName, d.Value]);
+    const table = buildTable(economyDetails);
+    table.classList.add('economy-data-overview-table');
+    // download btns
+    const btnWrapper = document.createElement('div');
+    btnWrapper.classList.add('economy-data-overview-btn-wrapper');
+    if (config['snapshot-url']) {
+      const snapshotBtn = buildDownloadBtn(config, 'snapshot', config['snapshot-url'], config['snapshot-size'] || '');
+      btnWrapper.append(snapshotBtn);
+    }
+    const downloadBtn = buildDownloadBtn(config, 'download');
+    btnWrapper.append(downloadBtn);
+    // pie chart
+    const pie = document.createElement('figure');
+    pie.classList.add('economy-data-overview-index-chart');
+    const [{ EconomyIndexes }] = await fetchAPI(`/economies/indicator/all/year/current/indexes?$filter=EconomyCode eq '${code}'`);
+    indexes = EconomyIndexes;
+    const wbl = indexes.find((i) => i.IndicatorCode === 'WBL_ALL');
+    indexes.splice(indexes.indexOf(wbl), 1); // remove wbl index for future data charts
+    drawPieChart(pie, parseFloat(wbl.Value, 10));
+
+    overview.append(table, btnWrapper, pie);
+  } catch (err) {
+    overview.insertAdjacentHTML('beforeend', '<p><strong>Economy data could not be displayed</strong></p>');
+  }
 
   // SNAPSHOT SECTION
   const snapshot = document.createElement('section');
   snapshot.classList.add('economy-data-snapshot');
-  // column chart
-  const indicators = await fetchIndicators();
-  const scores = [];
-  indexes.forEach((x) => {
-    const indicator = indicators.find((i) => i.IndicatorCode === x.IndicatorCode);
-    scores.push({
-      code: x.IndicatorCode.toLowerCase(),
-      indicator: indicator.IndicatorPublishedName,
-      score: parseInt(x.Value, 10),
-    });
-  });
-  const chart = document.createElement('figure');
-  chart.classList.add('economy-data-snapshot-figure');
-  drawColumnChart(chart, scores);
-  snapshot.append(chart);
   block.append(snapshot);
+  try {
+    // column chart
+    const indicators = await fetchIndicators();
+    const scores = [];
+    indexes.forEach((x) => {
+      const indicator = indicators.find((i) => i.IndicatorCode === x.IndicatorCode);
+      scores.push({
+        code: x.IndicatorCode.toLowerCase(),
+        indicator: indicator.IndicatorPublishedName,
+        score: parseInt(x.Value, 10),
+      });
+    });
+    const chart = document.createElement('figure');
+    chart.classList.add('economy-data-snapshot-figure');
+    drawColumnChart(chart, scores);
+
+    snapshot.append(chart);
+  } catch (error) {
+    snapshot.insertAdjacentHTML('beforeend', '<p><strong>Economy snapshot could not be displayed</strong></p>');
+  }
+  removeLoadingScreen();
 }

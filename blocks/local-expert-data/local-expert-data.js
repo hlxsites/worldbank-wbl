@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 import {
+  buildLoadingScreen,
+  removeLoadingScreen,
   fetchAPI,
   fetchEconomies,
   readBlockConfig,
@@ -38,16 +40,17 @@ function buildList(data) {
 export default async function decorate(block) {
   const config = readBlockConfig(block);
   block.textContent = '';
-  block.classList.add('data-loading');
+  buildLoadingScreen();
+
   const economies = await fetchEconomies();
   try {
     const economy = economies.find((ec) => config.economy === ec.Name);
     const data = await fetchAPI(`/economy/${economy.EconomyCode}/contributors?$orderby=LastName`);
     const list = buildList(data);
-    block.classList.remove('data-loading');
+
     block.append(list);
   } catch (err) {
-    block.classList.remove('data-loading');
-    block.innerHTML = '<p><strong>No local experts found</strong></p>';
+    block.insertAdjacentHTML('beforeend', '<p><strong>Local expert data could not be displayed</strong></p>');
   }
+  removeLoadingScreen();
 }

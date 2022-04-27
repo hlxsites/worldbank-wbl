@@ -374,9 +374,13 @@ export async function loadBlocks(main) {
   updateSectionsStatus(main);
   const blocks = [...main.querySelectorAll('div.block')];
   for (let i = 0; i < blocks.length; i += 1) {
-    // eslint-disable-next-line no-await-in-loop
-    await loadBlock(blocks[i]);
-    updateSectionsStatus(main);
+    const blockName = blocks[i].getAttribute('data-block-name');
+    // eslint-disable-next-line no-use-before-define
+    if (!DELAYED_BLOCKS.includes(blockName)) {
+      // eslint-disable-next-line no-await-in-loop
+      await loadBlock(blocks[i]);
+      updateSectionsStatus(main);
+    }
   }
 }
 
@@ -563,6 +567,7 @@ initHlx();
  */
 
 const LCP_BLOCKS = ['hero']; // add your LCP blocks to the list
+const DELAYED_BLOCKS = ['economy-data', 'indicator-data', 'local-expert-data', 'reform-data']; // add your delayed blocks to the list
 const RUM_GENERATION = 'project-1'; // add your RUM generation information here
 const PRODUCTION_DOMAINS = [];
 
@@ -624,6 +629,21 @@ export function decorateMain(main) {
   decorateBlocks(main);
 }
 
+export function buildLoadingScreen() {
+  const screen = document.createElement('div');
+  screen.classList.add('data-loading-screen');
+  document.querySelector('main').append(screen);
+  document.body.style.overflowY = 'hidden';
+}
+
+export function removeLoadingScreen() {
+  const screen = document.querySelector('.data-loading-screen');
+  if (screen) {
+    screen.remove();
+    document.body.style.overflowY = '';
+  }
+}
+
 export async function fetchAPI(path) {
   const URL = 'https://wbgindicators.azure-api.net/apis/igdataapi/data/wbl';
   const HEADER = { headers: { 'Ocp-Apim-Subscription-Key': 'ab7bc2c08fea4040a8086753bddb1b07' } };
@@ -674,6 +694,14 @@ async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
+
+  DELAYED_BLOCKS.forEach(async (name) => {
+    const block = doc.querySelector(`[data-block-name="${name}"]`);
+    if (block) {
+      await loadBlock(block);
+      updateSectionsStatus(main);
+    }
+  });
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
