@@ -8,6 +8,9 @@ indices:
     exclude:
       - '**/Document.*'
       - '/_import/**'
+      - '/data/**'
+      - '/local-experts/**'
+      - '/reforms/**'
     target: /query-index.xlsx
     properties:
       title:
