@@ -1,0 +1,19 @@
+@media (min-width: 992px) {
+  main .cards {
+    /* border: 2px solid red; */
+    display: flex;
+  }
+
+  main .cards .card {
+    flex: 1 0;
+    margin: 0 var(--spacing-s);
+  }
+
+  main .cards .card:first-of-type {
+    margin-left: 0;
+  }
+
+  main .cards .card:last-of-type {
+    margin-right: 0;
+  }
+}
