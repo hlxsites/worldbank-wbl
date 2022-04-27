@@ -127,7 +127,7 @@ main .carousel .carousel-nav {
   box-shadow: var(--box-shadow);
   transform: translateY(-50%);
   cursor: pointer;
-  z-index: 6;
+  z-index: 3;
 }
 
 main .carousel .carousel-nav.carousel-nav-left {

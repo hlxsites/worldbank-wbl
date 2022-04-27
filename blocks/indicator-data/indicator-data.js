@@ -7,12 +7,9 @@ import {
   fetchEconomies,
   fetchIndicators,
   readBlockConfig,
-} from '../../scripts/scripts.js';
-
-import {
   closeAllMenus,
   toggleMenu,
-} from '../dropdown-links/dropdown-links.js';
+} from '../../scripts/scripts.js';
 
 function writeTableContent(data) {
   const columns = ['Questions', 'Answer', 'Score', 'Law'];

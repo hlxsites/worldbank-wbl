@@ -21,6 +21,13 @@ function buildFlourish(url, height = 750) {
   return iframe;
 }
 
+function buildFormsOffice(url) {
+  const iframe = document.createElement('iframe');
+  iframe.src = url;
+  iframe.setAttribute('height', 1613);
+  return iframe;
+}
+
 /**
  * loads and decorates the embed
  * @param {Element} block The embed block element
@@ -33,12 +40,16 @@ export default async function decorate(block) {
     const url = new URL(a.href);
     block.innerHTML = '';
     const height = calculateHeight();
-    if (url.host.includes('dataviz.worldbank')) {
+    if (url.host.includes('dataviz.worldbank')) { // dataviz
       const embed = buildDataviz(url, height);
       block.append(embed);
-    } else if (url.host.includes('flo.uri.sh')) {
+    } else if (url.host.includes('flo.uri.sh')) { // flourish
       const embed = buildFlourish(url, height);
       block.append(embed);
+    } else if (url.host.includes('forms.office')) { // office forms
+      const embed = buildFormsOffice(url);
+      block.append(embed);
     }
+    block.setAttribute('data-embed-source', url.host);
   }
 }

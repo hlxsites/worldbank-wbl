@@ -733,9 +733,11 @@
   font-style: initial;
 }
 
-a.btn {
+a.btn,
+button.btn {
   display: inline-block;
   padding: var(--spacing-s);
+  border: 0;
   background: var(--background-color);
   color: var(--link-color);
   font-size: var(--detail-font-size-m);
@@ -751,7 +753,8 @@ a.btn::after {
   line-height: .8;
 }
 
-a.btn:hover {
+a.btn:hover,
+button.btn:hover {
   color: var(--link-hover-color);
 }
 

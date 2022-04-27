@@ -1,27 +1,9 @@
-import { readBlockConfig, toClassName } from '../../scripts/scripts.js';
-
-function closeMenu(el) {
-  el.setAttribute('aria-expanded', false);
-}
-
-function closeAllMenus() {
-  const expanded = document.querySelectorAll('header [aria-expanded="true"]');
-  expanded.forEach((ex) => closeMenu(ex));
-}
-
-function openMenu(el) {
-  el.setAttribute('aria-expanded', true);
-}
-
-function toggleMenu(e) {
-  const btn = e.target.closest('[role="button"]');
-  const expanded = btn.getAttribute('aria-expanded') === 'true';
-  if (expanded) {
-    closeMenu(btn);
-  } else {
-    openMenu(btn);
-  }
-}
+import {
+  readBlockConfig,
+  toClassName,
+  toggleMenu,
+  closeAllMenus,
+} from '../../scripts/scripts.js';
 
 function onMediaChange() {
   const mq = window.matchMedia('(min-width: 992px)');

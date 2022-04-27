@@ -70,7 +70,7 @@ main .dropdown-options {
   background: var(--link-color);
   color: var(--background-color);
   list-style: none;
-  z-index: 3;
+  z-index: 6;
 }
 
 main ul.dropdown-options {

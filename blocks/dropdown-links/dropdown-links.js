@@ -2,9 +2,9 @@ import {
   buildIcon,
   fetchEconomies,
   fetchIndicators,
-  getMetadata,
   readBlockConfig,
   toCamelCase,
+  toggleMenu,
 } from '../../scripts/scripts.js';
 
 function buildOption(name, path, url) {
@@ -21,30 +21,6 @@ function buildOption(name, path, url) {
   li.classList.add('dropdown-option');
   li.append(o);
   return li;
-}
-
-function closeMenu(el) {
-  el.setAttribute('aria-expanded', false);
-}
-
-export function closeAllMenus() {
-  const expanded = document.querySelectorAll('.dropdown-btn[aria-expanded="true"]');
-  expanded.forEach((ex) => closeMenu(ex));
-}
-
-function openMenu(el) {
-  closeAllMenus();
-  el.setAttribute('aria-expanded', true);
-}
-
-export function toggleMenu(e) {
-  const btn = e.target.closest('[role="button"]');
-  const expanded = btn.getAttribute('aria-expanded') === 'true';
-  if (expanded) {
-    closeMenu(btn);
-  } else {
-    openMenu(btn);
-  }
 }
 
 function filterDropdown(e) {
@@ -66,7 +42,6 @@ function filterDropdown(e) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  const category = getMetadata('category');
   block.textContent = '';
 
   // build button

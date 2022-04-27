@@ -622,8 +622,6 @@ function buildAutoBlocks(main) {
 export function decorateMain(main) {
   // forward compatible pictures redecoration
   decoratePictures(main);
-  // forward compatible link rewriting
-  makeLinksRelative(main);
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
@@ -693,6 +691,31 @@ export async function fetchIndicators() {
   return window.indicators;
 }
 
+/* toggle functionality */
+function closeMenu(el) {
+  el.setAttribute('aria-expanded', false);
+}
+
+export function closeAllMenus() {
+  const expanded = document.querySelectorAll('.dropdown-btn[aria-expanded="true"]');
+  expanded.forEach((ex) => closeMenu(ex));
+}
+
+function openMenu(el) {
+  closeAllMenus();
+  el.setAttribute('aria-expanded', true);
+}
+
+export function toggleMenu(e) {
+  const btn = e.target.closest('[role="button"]');
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  if (expanded) {
+    closeMenu(btn);
+  } else {
+    openMenu(btn);
+  }
+}
+
 /**
  * loads everything needed to get to LCP.
  */
@@ -726,6 +749,9 @@ async function loadLazy(doc) {
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
 
   doc.querySelectorAll('.section:empty').forEach((s) => s.remove());
+
+  // forward compatible link rewriting
+  makeLinksRelative(main);
 }
 
 /**
