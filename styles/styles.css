@@ -304,7 +304,7 @@ main .section.highlight {
   /* background-color: var(--highlight-background-color); */
 }
 
-/* SCREEN */
+/* data loading screen */
 
 header.collapsed + main .data-loading-screen {
   top: 69px;
@@ -336,4 +336,51 @@ header.collapsed + main .data-loading-screen {
   0% { transform: rotate(0deg) }
   50% { transform: rotate(180deg) }
   100% { transform: rotate(360deg) }
+}
+
+/* cards */
+.card {
+  border: 1px solid var(--border-color);
+  margin-bottom: var(--spacing-m);
+}
+
+/* card img */
+.card picture {
+  display: block;
+  position: relative;
+  height: calc(100vw * .515);
+}
+
+@media (min-width: 992px) {
+  .card picture {
+    height: calc(((100vw / 3) - var(--spacing-s) * 2) * .515);
+  }
+}
+
+.card img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* card body */
+.card .card-body {
+  padding: var(--spacing-l);
+  font-size: var(--body-font-size-s);
+}
+
+.card .card-body .detail + h2,
+.card .card-body .detail + h3 {
+  margin-top: var(--spacing-xs);
+}
+
+.card .card-body h2,
+.card .card-body h3 {
+  font-size: var(--heading-font-size-s);
+}
+
+.card h2 a,
+.card h3 a {
+  color: var(--text-color);
 }

@@ -644,6 +644,25 @@ export function removeLoadingScreen() {
   }
 }
 
+/**
+ * fetches pages from query index.
+ * @returns {Array} index with data and path lookup
+ */
+export async function lookupPages(pathnames) {
+  if (!window.pageIndex) {
+    const resp = await fetch(`${window.hlx.codeBasePath}/query-index.json`);
+    const json = await resp.json();
+    const lookup = {};
+    json.data.forEach((row) => {
+      lookup[row.path] = row;
+      if (row.image || row.image.startsWith('/default-meta-image.png')) row.image = `${window.hlx.codeBasePath}${row.image}`;
+    });
+    window.pageIndex = { data: json.data, lookup };
+  }
+  const result = pathnames.map((path) => window.pageIndex.lookup[path]).filter((e) => e);
+  return (result);
+}
+
 export async function fetchAPI(path) {
   const URL = 'https://wbgindicators.azure-api.net/apis/igdataapi/data/wbl';
   const HEADER = { headers: { 'Ocp-Apim-Subscription-Key': 'ab7bc2c08fea4040a8086753bddb1b07' } };
@@ -694,6 +713,7 @@ async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
+  loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
 
   DELAYED_BLOCKS.forEach(async (name) => {
     const block = doc.querySelector(`[data-block-name="${name}"]`);
@@ -703,7 +723,6 @@ async function loadLazy(doc) {
     }
   });
 
-  loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
 
   doc.querySelectorAll('.section:empty').forEach((s) => s.remove());

@@ -1,4 +1,4 @@
-function buildCard(el) {
+function decorateCard(el) {
   const card = document.createElement('div');
   card.classList.add('card');
   const img = el.querySelector('picture');
@@ -45,7 +45,7 @@ function buildCard(el) {
  * @param {Element} block The featured card block element
  */
 export default async function decorate(block) {
-  const card = buildCard(block.firstChild.firstChild);
+  const card = decorateCard(block.firstChild.firstChild);
   block.innerHTML = '';
   block.append(card);
 }
