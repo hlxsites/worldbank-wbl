@@ -104,18 +104,19 @@ export function loadScript(url, callback, type) {
   return document.querySelector(`head > document[src="${url}"]`);
 }
 
-export async function loadCharts() {
-  try {
-    loadScript(
-      'https://www.gstatic.com/charts/loader.js',
-      // eslint-disable-next-line no-undef
-      google.charts.load('current', { packages: ['corechart', 'table'] }),
-    );
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log('failed to load charts', err);
-  }
+function initCharts() {
+  // eslint-disable-next-line no-undef
+  google.charts.load('current', { packages: ['corechart', 'table'] });
 }
+
+// export function loadCharts() {
+//   try {
+//     loadScript(', initCharts);
+//   } catch (err) {
+//     // eslint-disable-next-line no-console
+//     console.log('failed to load charts', err);
+//   }
+// }
 
 /**
  * Retrieves the content of a metadata tag.
@@ -731,6 +732,7 @@ export function toggleMenu(e) {
  * loads everything needed to get to LCP.
  */
 async function loadEager(doc) {
+  loadHeader(doc.querySelector('header'));
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
@@ -745,12 +747,11 @@ async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadBlocks(main);
 
-  loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
 
   const chartsOnPage = document.querySelector(DELAYED_BLOCKS.map((b) => `.${b}`).join(','));
-  if (chartsOnPage) loadCharts();
+  if (chartsOnPage) loadScript('https://www.gstatic.com/charts/loader.js', initCharts);
 
   DELAYED_BLOCKS.forEach(async (name) => {
     const block = doc.querySelector(`[data-block-name="${name}"]`);

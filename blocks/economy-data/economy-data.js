@@ -41,8 +41,8 @@ function buildTr(data, type = 'td') {
 }
 
 async function downloadExcel(e) {
-  document.querySelector('body').style.cursor = 'wait';
   const target = e.target.closest('a');
+  target.style.cursor = 'wait';
   const msg = document.createElement('span');
   msg.textContent = 'Downloading...';
   msg.classList.add('economy-data-overview-btn-downloading');
@@ -89,7 +89,7 @@ async function downloadExcel(e) {
   const workbook = XLSX.utils.table_to_book(table);
   // eslint-disable-next-line no-undef
   XLSX.writeFile(workbook, `${economy} ${year} Snapshot.xlsx`);
-  document.querySelector('body').style.cursor = 'default';
+  target.style.cursor = 'default';
   msg.textContent = 'Downloaded!';
 }
 
