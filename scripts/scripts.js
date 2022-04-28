@@ -92,18 +92,25 @@ export function loadCSS(href, callback) {
  * @returns {Element} script element
  */
 export function loadScript(url, callback, type) {
-  const head = document.querySelector('head');
-  const script = document.createElement('script');
-  script.src = url;
-  if (type) { script.type = type; }
-  head.append(script);
-  script.onload = callback;
-  return script;
+  if (!document.querySelector(`head > document[src="${url}"]`)) {
+    const head = document.querySelector('head');
+    const script = document.createElement('script');
+    script.src = url;
+    if (type) { script.type = type; }
+    head.append(script);
+    script.onload = callback;
+    return script;
+  }
+  return document.querySelector(`head > document[src="${url}"]`);
 }
 
 export async function loadCharts() {
   try {
-    await loadScript('https://www.gstatic.com/charts/loader.js');
+    loadScript(
+      'https://www.gstatic.com/charts/loader.js',
+      // eslint-disable-next-line no-undef
+      google.charts.load('current', { packages: ['corechart', 'table'] }),
+    );
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log('failed to load charts', err);
@@ -566,8 +573,8 @@ initHlx();
  * ------------------------------------------------------------
  */
 
-const LCP_BLOCKS = ['hero']; // add your LCP blocks to the list
-const DELAYED_BLOCKS = ['economy-data', 'indicator-data', 'local-expert-data', 'reform-data']; // add your delayed blocks to the list
+const LCP_BLOCKS = ['hero', 'featured-card']; // add your LCP blocks to the list
+const DELAYED_BLOCKS = ['economy-data', 'indicator-data', 'local-expert-data', 'reform-data', 'questionnaire-data']; // add your delayed blocks to the list
 const RUM_GENERATION = 'project-1'; // add your RUM generation information here
 const PRODUCTION_DOMAINS = [];
 
@@ -628,10 +635,13 @@ export function decorateMain(main) {
 }
 
 export function buildLoadingScreen() {
-  const screen = document.createElement('div');
-  screen.classList.add('data-loading-screen');
-  document.querySelector('main').append(screen);
-  document.body.style.overflowY = 'hidden';
+  if (!document.querySelector('.data-loading-screen')) {
+    const screen = document.createElement('div');
+    screen.classList.add('data-loading-screen');
+    document.querySelector('main').append(screen);
+    document.body.style.overflowY = 'hidden';
+    document.body.style.cursor = 'wait';
+  }
 }
 
 export function removeLoadingScreen() {
@@ -639,6 +649,7 @@ export function removeLoadingScreen() {
   if (screen) {
     screen.remove();
     document.body.style.overflowY = '';
+    document.body.style.cursor = '';
   }
 }
 
@@ -737,6 +748,9 @@ async function loadLazy(doc) {
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
+
+  const chartsOnPage = document.querySelector(DELAYED_BLOCKS.map((b) => `.${b}`).join(','));
+  if (chartsOnPage) loadCharts();
 
   DELAYED_BLOCKS.forEach(async (name) => {
     const block = doc.querySelector(`[data-block-name="${name}"]`);

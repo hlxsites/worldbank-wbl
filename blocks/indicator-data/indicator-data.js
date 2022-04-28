@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import {
   buildIcon,
   buildLoadingScreen,
@@ -30,6 +29,7 @@ function writeTableContent(data) {
 }
 
 function drawTable(el, cols, rows, specs = {}) {
+  // eslint-disable-next-line no-undef
   const data = new google.visualization.DataTable();
   cols.forEach((col) => {
     data.addColumn(typeof col, col);
@@ -51,6 +51,7 @@ function drawTable(el, cols, rows, specs = {}) {
     config.height = `${specs.height}px`;
   }
 
+  // eslint-disable-next-line no-undef
   const table = new google.visualization.Table(el);
   table.draw(data, config);
   if (specs.results) {
@@ -62,11 +63,13 @@ function drawTable(el, cols, rows, specs = {}) {
 }
 
 async function updateTable(indicatorCode, economyCode) {
+  buildLoadingScreen();
   const [data] = await fetchAPI(`/economy/${economyCode}/indicator/${indicatorCode}/year/current/indicatordatapointvalues/multilevel`);
   const content = writeTableContent(data);
   const table = document.querySelector('.indicator-data-table');
   drawTable(table, content.columns, content.rows, { sort: false });
   closeAllMenus();
+  removeLoadingScreen();
 }
 
 function updateDropdown(indicator) {

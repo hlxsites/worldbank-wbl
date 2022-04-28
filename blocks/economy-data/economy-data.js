@@ -5,6 +5,7 @@ import {
   fetchAPI,
   fetchEconomies,
   fetchIndicators,
+  loadScript,
   readBlockConfig,
 } from '../../scripts/scripts.js';
 
@@ -84,7 +85,9 @@ async function downloadExcel(e) {
     }
   }
 
+  // eslint-disable-next-line no-undef
   const workbook = XLSX.utils.table_to_book(table);
+  // eslint-disable-next-line no-undef
   XLSX.writeFile(workbook, `${economy} ${year} Snapshot.xlsx`);
   document.querySelector('body').style.cursor = 'default';
   msg.textContent = 'Downloaded!';
@@ -103,12 +106,18 @@ function buildDownloadBtn(config, type, link, size) {
     btn.innerHTML = `<span>Download Excel ${icon.outerHTML}</span>`;
     btn.setAttribute('data-economy', config.economy);
     btn.setAttribute('data-year', new Date().getFullYear());
-    btn.addEventListener('click', downloadExcel);
+    btn.addEventListener('click', (e) => {
+      loadScript(
+        'https://cdn.sheetjs.com/xlsx-0.18.6/package/dist/xlsx.full.min.js',
+        downloadExcel(e),
+      );
+    });
   }
   return btn;
 }
 
 function drawPieChart(el, value) {
+  // eslint-disable-next-line no-undef
   const data = google.visualization.arrayToDataTable([
     ['Index', 'Value'],
     ['WBL Index', value],
@@ -135,6 +144,7 @@ function drawPieChart(el, value) {
     tooltip: { trigger: 'none' },
   };
 
+  // eslint-disable-next-line no-undef
   const chart = new google.visualization.PieChart(el);
   chart.draw(data, options);
   // chart title
@@ -207,6 +217,8 @@ export default async function decorate(block) {
     const economyDetails = economy.EconomyDetails.map((d) => [d.EconomyDetailTypeName, d.Value]);
     const table = buildTable(economyDetails);
     table.classList.add('economy-data-overview-table');
+
+    overview.append(table);
     // download btns
     const btnWrapper = document.createElement('div');
     btnWrapper.classList.add('economy-data-overview-btn-wrapper');
@@ -216,6 +228,8 @@ export default async function decorate(block) {
     }
     const downloadBtn = buildDownloadBtn(config, 'download');
     btnWrapper.append(downloadBtn);
+
+    overview.append(btnWrapper);
     // pie chart
     const pie = document.createElement('figure');
     pie.classList.add('economy-data-overview-index-chart');
@@ -225,7 +239,7 @@ export default async function decorate(block) {
     indexes.splice(indexes.indexOf(wbl), 1); // remove wbl index for future data charts
     drawPieChart(pie, parseFloat(wbl.Value, 10));
 
-    overview.append(table, btnWrapper, pie);
+    overview.append(pie);
   } catch (err) {
     overview.insertAdjacentHTML('beforeend', '<p><strong>Economy data could not be displayed</strong></p>');
   }
