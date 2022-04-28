@@ -1,4 +1,5 @@
 import {
+  makeLinksRelative,
   readBlockConfig,
   toClassName,
   toggleMenu,
@@ -126,4 +127,7 @@ export default async function decorate(block) {
   nav.setAttribute('aria-expanded', 'false');
 
   block.append(nav);
+
+  // forward compatible link rewriting
+  makeLinksRelative(block);
 }
