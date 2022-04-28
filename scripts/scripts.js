@@ -575,7 +575,7 @@ initHlx();
  */
 
 const LCP_BLOCKS = ['hero', 'featured-card']; // add your LCP blocks to the list
-const DELAYED_BLOCKS = ['economy-data', 'indicator-data', 'local-expert-data', 'reform-data', 'questionnaire-data']; // add your delayed blocks to the list
+const DELAYED_BLOCKS = ['economy-data', 'indicator-data', 'local-expert-data', 'methodology-data', 'reform-data', 'questionnaire-data']; // add your delayed blocks to the list
 const RUM_GENERATION = 'project-1'; // add your RUM generation information here
 const PRODUCTION_DOMAINS = [];
 

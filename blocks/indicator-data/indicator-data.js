@@ -185,7 +185,9 @@ export default async function decorate(block) {
 
       block.append(dropdown, table);
     }
-  } catch (err) {
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('Could not display indicator data', error);
     block.insertAdjacentHTML('beforeend', '<p><strong>Indicator data could not be displayed</strong></p>');
   }
   removeLoadingScreen();

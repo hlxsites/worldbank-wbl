@@ -240,7 +240,9 @@ export default async function decorate(block) {
     drawPieChart(pie, parseFloat(wbl.Value, 10));
 
     overview.append(pie);
-  } catch (err) {
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('Could not display economy data', error);
     overview.insertAdjacentHTML('beforeend', '<p><strong>Economy data could not be displayed</strong></p>');
   }
 
@@ -266,6 +268,8 @@ export default async function decorate(block) {
 
     snapshot.append(chart);
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('Could not display economy snapshot data', error);
     snapshot.insertAdjacentHTML('beforeend', '<p><strong>Economy snapshot could not be displayed</strong></p>');
   }
   removeLoadingScreen();

@@ -49,7 +49,9 @@ export default async function decorate(block) {
     const list = buildList(data);
 
     block.append(list);
-  } catch (err) {
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('Could not display local expert data', error);
     block.insertAdjacentHTML('beforeend', '<p><strong>Local expert data could not be displayed</strong></p>');
   }
   removeLoadingScreen();

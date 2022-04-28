@@ -131,7 +131,9 @@ export default async function decorate(block) {
 
       block.append(table);
     }
-  } catch (err) {
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('Could not display reform data', error);
     block.insertAdjacentHTML('beforeend', '<p><strong>Reform data could not be displayed</strong></p>');
   }
   removeLoadingScreen();

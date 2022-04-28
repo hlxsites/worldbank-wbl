@@ -202,6 +202,8 @@ export default async function decorate(block) {
 
     block.append(wrapper, btn);
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('Could not display questionnaire data', error);
     block.insertAdjacentHTML('beforeend', '<p><strong>Questionnaire data could not be displayed</strong></p>');
   }
 }
