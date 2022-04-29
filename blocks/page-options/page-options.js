@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import {
   buildIcon,
   readBlockConfig,
@@ -38,7 +37,7 @@ function buildButton(type, info) {
   } else if (type === 'info') {
     a.addEventListener('click', displayInfo);
   }
-  a.append(buildIcon(`${type}-blue`));
+  a.append(buildIcon(type));
   return a;
 }
 

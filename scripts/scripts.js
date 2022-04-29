@@ -606,6 +606,19 @@ function buildPageOptionsBlock(main) {
   }
 }
 
+function buildSocialBlock(main) {
+  const section = main.children[main.children.length - 1];
+  const social = buildBlock('social', [
+    ['<div>Email</div>', '<div>true</div>'],
+    ['<div>Print</div>', '<div>true</div>'],
+    ['<div>Twitter</div>', '<div>true</div>'],
+    ['<div>Facebook</div>', '<div>true</div>'],
+    ['<div>LinkedIn</div>', '<div>true</div>'],
+    ['<div>Plus</div>', '<div>true</div>'],
+  ]);
+  section.prepend(social);
+}
+
 function loadHeader(header) {
   const headerBlock = buildBlock('header', '');
   header.append(headerBlock);
@@ -629,6 +642,10 @@ function buildAutoBlocks(main) {
     const category = getMetadata('category');
     if (category === 'Explore Topics' || category === 'Explore Economies') {
       buildPageOptionsBlock(main);
+    }
+    const theme = getMetadata('theme');
+    if (theme === 'Blue Social') {
+      buildSocialBlock(main);
     }
   } catch (error) {
     // eslint-disable-next-line no-console

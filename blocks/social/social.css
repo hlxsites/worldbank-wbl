@@ -1,0 +1,122 @@
+:root {
+  --twitter-color: #1DA1F2;
+  --facebook-color: #4267B2;
+  --linkedin-color: #0077b5;
+  --digg-color: #000;
+  --renren-color: #005EAD;
+  --weibo-color: #DF2029;
+}
+
+main .social {
+  display: flex;
+  justify-content: space-between;
+}
+
+main .social .social-btn {
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+main .social .social-btn:not(:last-child) {
+  margin-right: var(--spacing-s);
+}
+
+main .social .social-btn:hover {
+  border-color: var(--link-color);
+}
+
+main .social .social-btn img {
+  height: 16px;
+  width: 16px;
+  margin-top: var(--spacing-s);
+}
+
+main .social .social-btn-twitter {
+  background: var(--twitter-color);
+}
+
+main .social .social-btn-twitter:hover {
+  border-color: var(--twitter-color);
+}
+
+main .social .social-btn-facebook {
+  background: var(--facebook-color);
+}
+
+main .social .social-btn-facebook:hover {
+  border-color: var(--facebook-color);
+}
+
+main .social .social-btn-linkedin {
+  background: var(--linkedin-color);
+}
+
+main .social .social-btn-linkedin:hover {
+  border-color: var(--linkedin-color);
+}
+
+main .social .social-btn-filled {
+  position: relative;
+  background: var(--link-color);
+}
+
+main .social .social-btn-weibo {
+  background: var(--weibo-color);
+}
+
+main .social .social-btn-weibo:hover {
+  border-color: var(--weibo-color);
+}
+
+main .social .social-btn-renren {
+  background: var(--renren-color);
+}
+
+main .social .social-btn-renren:hover {
+  border-color: var(--renren-color);
+}
+
+main .social .social-btn-digg {
+  background: var(--digg-color);
+}
+
+main .social .social-btn-digg:hover {
+  border-color: var(--digg-color);
+}
+
+main .social .social-btn-filled::after {
+  content: attr(title);
+  position: absolute;
+  width: max-content;
+  top: 50%;
+  left: calc(32px + var(--spacing-s));
+  transform: translateY(-50%);
+}
+
+main .social .social-btn-plus {
+  position: relative;
+}
+
+main .social .social-btn-plus .social-btn-plus-menu {
+  position: absolute;
+  top: calc(32px + var(--spacing-s));
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: var(--spacing-s);
+  grid-row-gap: var(--spacing-s);
+  /* height: 50px; */
+  width: 350px;
+  max-width: calc(100vw - (2 * var(--spacing-m)));
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-m);
+  background: var(--background-color);
+  font-size: var(--body-font-size-s);
+  text-align: left;
+  box-shadow: var(--box-shadow);
+}
