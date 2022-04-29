@@ -1,3 +1,11 @@
+main .tabs-container {
+  padding-bottom: 0;
+}
+
+main .tabs-container + div {
+  background: var(--detail-background-color);
+} 
+
 main .tabs {
   margin-bottom: var(--spacing-l);
   border-bottom: 1px solid var(--border-color);

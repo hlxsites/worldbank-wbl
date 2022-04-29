@@ -9,6 +9,7 @@ main .page-options .page-options-btn {
   width: 32px;
   border: 1px solid var(--border-color);
   border-radius: 50%;
+  background: var(--background-color);
   text-align: center;
   cursor: pointer;
 }
