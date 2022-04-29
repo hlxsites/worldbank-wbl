@@ -13,7 +13,6 @@ async function fetchMethdologyData() {
       const resp = await fetch('/methodology-data.json');
       const json = await resp.json();
       const data = {};
-      // console.log(json);
       json.data.forEach((j) => {
         if (!data[j.indicator]) {
           data[j.indicator] = {};

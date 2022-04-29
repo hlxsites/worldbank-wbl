@@ -784,9 +784,6 @@ async function loadLazy(doc) {
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
 
   doc.querySelectorAll('.section:empty').forEach((s) => s.remove());
-
-  // forward compatible link rewriting
-  makeLinksRelative(main);
 }
 
 /**
