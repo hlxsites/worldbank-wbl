@@ -1,0 +1,86 @@
+main .page-options {
+  position: relative;
+  text-align: right;
+}
+
+main .page-options .page-options-btn {
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+main .page-options .page-options-btn:not(:last-child) {
+  margin-right: var(--spacing-s);
+}
+
+main .page-options .page-options-btn:hover {
+  border-color: var(--link-color);
+}
+
+main .page-options .page-options-btn img {
+  height: 16px;
+  width: 16px;
+  margin-top: var(--spacing-s);
+}
+
+/* page options modal */
+main .page-options-info-modal {
+  border: 1px solid var(--border-color);
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  display: flex;
+  width: 750px;
+  max-width: 80%;
+  padding: var(--spacing-l);
+  background: var(--background-color);
+  font-size: var(--body-font-size-s);
+  box-shadow: var(--box-shadow);
+  z-index: 9;
+  transform: translateX(-50%);
+}
+
+main .page-options-info-modal-close {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 16px;
+  height: 16px;
+  margin-left: var(--spacing-s);
+  background: var(--background-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+main .page-options-info-modal-close::before,
+main .page-options-info-modal-close::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--link-color);
+}
+
+main .page-options-info-modal-close:hover::before,
+main .page-options-info-modal-close:hover::after {
+  background: var(--link-hover-color);
+}
+
+main .page-options-info-modal-close::before {
+  transform: rotate(45deg);
+}
+
+main .page-options-info-modal-close::after {
+  transform: rotate(-45deg);
+}
+
+main .page-options-info-modal p {
+  margin: 0;
+  text-align: left;
+}
