@@ -1,6 +1,6 @@
 :root {
   --light-row-color: #262626;
-  --dark-row-color: #000000;
+  --dark-row-color: #0000;
   --footer-color: #bebebe;
 }
 
@@ -98,6 +98,7 @@ footer .footer .footer-partnership li:not(:last-child) {
 footer .footer .footer-partnership a {
   font-weight: var(--weight-bold);
 }
+
 /* first row */
 @media (min-width: 768px) {
   footer .footer .footer-row:first-child > div {
@@ -126,11 +127,11 @@ footer .footer > div > div:last-child {
 @media (min-width: 992px) {
   footer .footer .footer-row:last-child > div p:last-child {
     flex-basis: unset;
+    /* stylelint-disable-next-line declaration-block-no-shorthand-property-overrides */
     flex: 1 0;
     text-align: right;
   }
 }
-
 
 footer .footer > div > div:last-child a {
   color: var(--detail-color);

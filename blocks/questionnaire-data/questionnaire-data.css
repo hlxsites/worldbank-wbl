@@ -72,11 +72,6 @@ main .questionnaire-data .dropdown-toggle .dropdown-btn img {
 }
 
 /* questionnaire dropdown options */
-main .questionnaire-data .dropdown-toggle .dropdown-btn[aria-expanded=false] + .dropdown-options {
-  display: none;
-  visibility: hidden;
-}
-
 main .questionnaire-data .dropdown-toggle .dropdown-options {
   position: absolute;
   top: 100%;
@@ -89,6 +84,11 @@ main .questionnaire-data .dropdown-toggle .dropdown-options {
   color: var(--background-color);
   list-style: none;
   z-index: 3;
+}
+
+main .questionnaire-data .dropdown-toggle .dropdown-btn[aria-expanded=false] + .dropdown-options {
+  display: none;
+  visibility: hidden;
 }
 
 main .questionnaire-data .dropdown-toggle ul.dropdown-options {

@@ -11,9 +11,7 @@ main .additional-information-wrapper {
 @media (min-width: 992px) {
   main .additional-information {
     display: grid; 
-    grid-auto-columns: 1fr; 
-    grid-template-columns: 1fr 1fr 1fr; 
-    grid-template-rows: auto 1fr; 
+    grid-template: auto 1fr / 1fr 1fr 1fr; 
     gap: 0 var(--spacing-xxl); 
     grid-template-areas: 
       "title title title"
@@ -156,15 +154,12 @@ main .additional-information .stay-connected li:not(:last-child) {
   margin-bottom: var(--spacing-m);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .additional-information .stay-connected a {
   display: flex;
   align-items: center;
   color: var(--text-color);
   text-decoration: none;
-}
-
-main .additional-information .stay-connected a:hover span {
-  background: var(--link-hover-color);
 }
 
 main .additional-information .stay-connected span {
@@ -175,6 +170,10 @@ main .additional-information .stay-connected span {
   border-radius: 50%;
   background: var(--link-color);
   text-align: center;
+}
+
+main .additional-information .stay-connected a:hover span {
+  background: var(--link-hover-color);
 }
 
 main .additional-information .stay-connected img {

@@ -33,6 +33,11 @@ main .tabs .tab:not(:last-of-type) {
   }  
 }
 
+main .tabs .tab a {
+  display: block;
+  text-decoration: none;
+}
+
 main .tabs .tab.tab-current {
   border-bottom: 3px solid var(--link-hover-color);
   cursor: default;
@@ -40,9 +45,4 @@ main .tabs .tab.tab-current {
 
 main .tabs .tab.tab-current a {
   color: var(--link-hover-color);
-}
-
-main .tabs .tab a {
-  display: block;
-  text-decoration: none;
 }

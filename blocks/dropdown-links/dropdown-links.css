@@ -54,12 +54,7 @@ main .dropdown-links-wrapper + .dropdown-links-wrapper { /* adjacent */
 }
 
 /* dropdown options */
-main .dropdown-btn[aria-expanded=false] + .dropdown-options {
-  display: none;
-  visibility: hidden;
-}
-
-main .dropdown-options {
+main .dropdown-links .dropdown-options {
   position: absolute;
   top: 100%;
   left: 0;
@@ -73,18 +68,23 @@ main .dropdown-options {
   z-index: 6;
 }
 
+main .dropdown-links .dropdown-btn[aria-expanded=false] + .dropdown-options {
+  display: none;
+  visibility: hidden;
+}
+
 main ul.dropdown-options {
   max-height: 244px;
   overflow-y: auto;
 }
 
-main .dropdown-options a {
+main .dropdown-links .dropdown-options a {
   display: block;
   padding: var(--spacing-xs) var(--spacing-m);
   color: var(--background-color);
 }
 
-main .dropdown-options a:hover {
+main .dropdown-links .dropdown-options a:hover {
   background: var(--link-hover-color);
 }
 
@@ -93,6 +93,7 @@ main .dropdown-filter-wrapper {
   padding: var(--spacing-s);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .dropdown-filter-wrapper img {
   position: absolute;
   top: 50%;
@@ -112,7 +113,7 @@ main .dropdown-filter:hover {
   border-color: var(--link-hover-color);
 }
 
-main .dropdown-options .dropdown-option.hide {
+main .dropdown-links .dropdown-options .dropdown-option.hide {
   display: none;
   visibility: hidden;
 }

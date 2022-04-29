@@ -2,7 +2,7 @@
     --overlay-background-color: #01152F;
     --overlay-link-color: #002246;
     --overlay-link-hover-color: #013367;
-    --hero-nav-background: #00000066;
+    --hero-nav-background: #0006;
 }
 
 main .hero-container > div {
@@ -55,6 +55,17 @@ main .hero > div p {
     padding: 0;
 }
 
+main .hero picture {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    object-fit: cover;
+    box-sizing: border-box;
+}
+
 main .hero > div picture {
     display: block;
 }
@@ -73,17 +84,6 @@ main .hero > div > p {
 main .hero .hero-img {
     position: relative;
     height: calc(100vw * .416);
-}
-
-main .hero picture {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    object-fit: cover;
-    box-sizing: border-box;
 }
 
 main .hero img {
@@ -111,8 +111,7 @@ main .hero .hero-overlay {
     main .hero .hero-overlay {
         position: absolute;
         bottom: 0;
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-flow: row wrap;
         align-content: flex-end;
         height: 66%;
         width: 100%;
@@ -156,7 +155,6 @@ main .hero .hero-overlay .hero-btn::after {
     content: '';
     padding: 0;
 }
-
 
 main .hero .hero-overlay .hero-btn:hover {
     background: var(--overlay-link-hover-color);

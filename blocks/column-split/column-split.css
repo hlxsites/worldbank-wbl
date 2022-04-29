@@ -14,8 +14,6 @@ main .column-split-container h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    /* max-width: var(--container-width); */
-    /* margin: auto; */
   }
 
   main .column-split-container h1 {

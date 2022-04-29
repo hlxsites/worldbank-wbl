@@ -108,9 +108,7 @@ main .social .social-btn-plus .social-btn-plus-menu {
   right: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: var(--spacing-s);
-  grid-row-gap: var(--spacing-s);
-  /* height: 50px; */
+  gap: var(--spacing-s);
   width: 350px;
   max-width: calc(100vw - (2 * var(--spacing-m)));
   border: 1px solid var(--border-color);

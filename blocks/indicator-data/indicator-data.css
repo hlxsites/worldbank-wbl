@@ -41,11 +41,6 @@ main .indicator-data .dropdown-toggle .dropdown-btn img {
 }
 
 /* indicator dropdown options */
-main .indicator-data .dropdown-toggle .dropdown-btn[aria-expanded=false] + .dropdown-options {
-  display: none;
-  visibility: hidden;
-}
-
 main .indicator-data .dropdown-toggle .dropdown-options {
   position: absolute;
   top: 100%;
@@ -58,6 +53,11 @@ main .indicator-data .dropdown-toggle .dropdown-options {
   color: var(--background-color);
   list-style: none;
   z-index: 3;
+}
+
+main .indicator-data .dropdown-toggle .dropdown-btn[aria-expanded=false] + .dropdown-options {
+  display: none;
+  visibility: hidden;
 }
 
 main .indicator-data .dropdown-toggle ul.dropdown-options {

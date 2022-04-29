@@ -33,11 +33,6 @@ main .methodology-data .dropdown-toggle .dropdown-btn img {
 }
 
 /* methodology dropdown options */
-main .methodology-data .dropdown-toggle .dropdown-btn[aria-expanded=false] + .dropdown-options {
-  display: none;
-  visibility: hidden;
-}
-
 main .methodology-data .dropdown-toggle .dropdown-options {
   position: absolute;
   top: 100%;
@@ -50,6 +45,11 @@ main .methodology-data .dropdown-toggle .dropdown-options {
   color: var(--background-color);
   list-style: none;
   z-index: 3;
+}
+
+main .methodology-data .dropdown-toggle .dropdown-btn[aria-expanded=false] + .dropdown-options {
+  display: none;
+  visibility: hidden;
 }
 
 main .methodology-data .dropdown-toggle ul.dropdown-options {

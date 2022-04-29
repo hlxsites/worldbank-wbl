@@ -67,17 +67,17 @@ main .page-options-info-modal-close::after {
   background: var(--link-color);
 }
 
-main .page-options-info-modal-close:hover::before,
-main .page-options-info-modal-close:hover::after {
-  background: var(--link-hover-color);
-}
-
 main .page-options-info-modal-close::before {
   transform: rotate(45deg);
 }
 
 main .page-options-info-modal-close::after {
   transform: rotate(-45deg);
+}
+
+main .page-options-info-modal-close:hover::before,
+main .page-options-info-modal-close:hover::after {
+  background: var(--link-hover-color);
 }
 
 main .page-options-info-modal p {

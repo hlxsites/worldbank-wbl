@@ -33,11 +33,8 @@ main .list h3 a {
 }
 
 main .list .list-row {
-  border-bottom: 1px solid var(--border-color);
-}
-
-main .list .list-row {
   width: 100%;
+  border-bottom: 1px solid var(--border-color);
   padding: var(--spacing-l) 0;
 }
 

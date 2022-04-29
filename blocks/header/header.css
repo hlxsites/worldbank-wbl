@@ -1,6 +1,5 @@
 :root {
   --hamburger-color: #EC553A;
-
   --brand-size: 12px;
 }
 
@@ -16,22 +15,20 @@
   }
 }
 
+/* stylelint-disable no-descending-specificity */
+
 /* header and nav layout */
 header .nav {
   position: fixed;
   display: grid; 
-  grid-auto-columns: 1fr; 
-  grid-template-columns: 1fr 22px; 
-  grid-template-rows: auto 1fr; 
-  grid-template-areas: 
-    "row hamburger"
-    "sections sections"; 
+  grid-template: 'row hamburger' auto
+    'sections sections' 1fr / 1fr 22px;
   align-items: center;
   width: 100%;
   top: 0;
   border-bottom: 1px solid var(--border-color);
   padding: 0 var(--spacing-s);
-  background-color: var(--background-color);
+  background: var(--background-color);
   z-index: 9;
 }
 
@@ -114,10 +111,7 @@ header .nav[aria-expanded=true] .nav-hamburger-icon::after {
 header .nav-row {
   grid-area: row;
   display: grid; 
-  grid-template-columns: 1fr auto; 
-  grid-template-rows: 1fr; 
-  grid-template-areas: 
-    "brand language";
+  grid-template: 'brand language' 1fr / 1fr auto;
   align-items: center;
 }
 
@@ -327,7 +321,6 @@ header .nav-sections .nav-links {
   margin: 0;
   padding: var(--spacing-m);
   background: var(--detail-background-color);
-  padding: var(--spacing-m);
   font-size: var(--body-font-size-s);
   font-weight: var(--weight-semibold);
   text-transform: uppercase;
@@ -386,3 +379,4 @@ header .nav-sections .nav-links a:hover {
 header .nav[aria-expanded=true] .nav-sections {
   display: block;
 }
+/* stylelint-enable no-descending-specificity */
