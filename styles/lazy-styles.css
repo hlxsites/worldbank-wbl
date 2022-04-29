@@ -757,6 +757,10 @@
   vertical-align: text-top;
 }
 
+.block table td ul {
+  padding-left: var(--spacing-m);
+}
+
 /* google charts overrides */
 .block table .google-visualization-table-tr-over { /* hovered row */
   background-color: var(--detail-background-color);
@@ -799,4 +803,34 @@ header.collapsed + main .data-loading-screen {
   0% { transform: rotate(0deg) }
   50% { transform: rotate(180deg) }
   100% { transform: rotate(360deg) }
+}
+
+@media print {
+  header, footer,
+  .dropdown-links-or,
+  .economy-data-overview-btn-wrapper,
+  .page-options-wrapper {
+    display: none;
+  }
+
+  .economy-data .economy-data-snapshot-chart-label p {
+    display: unset !important;
+    visibility: unset !important;
+  }
+
+  .google-visualization-table,
+  .google-visualization-table div {
+    height: unset !important;
+    max-height: unset !important;
+    width: unset !important;
+    max-width: unset !important;
+  }
+
+  div thead {
+    display: table-row-group;
+  }
+
+  div th {
+    top: 0 !important;
+  }
 }

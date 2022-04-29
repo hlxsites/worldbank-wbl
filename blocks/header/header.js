@@ -54,16 +54,6 @@ function buildLanguageSwitch(el) {
 }
 
 /**
- * collapses all open nav sections
- * @param {Element} sections The container element
- */
-function collapseAllNavSections(sections) {
-  sections.querySelectorAll('.nav-section').forEach((section) => {
-    section.setAttribute('aria-expanded', 'false');
-  });
-}
-
-/**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
  */

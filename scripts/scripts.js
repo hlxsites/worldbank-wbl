@@ -109,15 +109,6 @@ function initCharts() {
   google.charts.load('current', { packages: ['corechart', 'table'] });
 }
 
-// export function loadCharts() {
-//   try {
-//     loadScript(', initCharts);
-//   } catch (err) {
-//     // eslint-disable-next-line no-console
-//     console.log('failed to load charts', err);
-//   }
-// }
-
 /**
  * Retrieves the content of a metadata tag.
  * @param {string} name The metadata name (or property)
@@ -499,6 +490,16 @@ export function decoratePictures(main) {
 }
 
 /**
+ * Set template (page structure) and theme (page styles).
+ */
+function decorateTemplateAndTheme(doc) {
+  const template = (getMetadata('template'));
+  if (template) doc.body.classList.add(toClassName(template));
+  const theme = getMetadata('theme');
+  if (theme) doc.body.classList.add(toClassName(theme));
+}
+
+/**
  * Adds the favicon.
  * @param {string} href The favicon URL
  */
@@ -596,6 +597,15 @@ function buildHeroBlock(main) {
   }
 }
 
+function buildPageOptionsBlock(main) {
+  const section = main.children[1];
+  const exists = section.querySelector('.page-options');
+  if (!exists) {
+    const pageOptions = buildBlock('page-options', '');
+    section.prepend(pageOptions);
+  }
+}
+
 function loadHeader(header) {
   const headerBlock = buildBlock('header', '');
   header.append(headerBlock);
@@ -616,7 +626,10 @@ function loadFooter(footer) {
  */
 function buildAutoBlocks(main) {
   try {
-    buildHeroBlock(main);
+    const category = getMetadata('category');
+    if (category === 'Explore Topics' || category === 'Explore Economies') {
+      buildPageOptionsBlock(main);
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -733,6 +746,7 @@ export function toggleMenu(e) {
  */
 async function loadEager(doc) {
   loadHeader(doc.querySelector('header'));
+  decorateTemplateAndTheme(doc);
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);

@@ -37,8 +37,7 @@
   --body-line-height-s: 1.2;
 
   /* heading sizes */
-  --heading-font-size-xxl: 48px;
-  --heading-font-size-xl: 40px;
+  --heading-font-size-xl: 32px;
   --heading-font-size-l: 26px;
   --heading-font-size-m: 24px;
   --heading-font-size-s: 20px;
@@ -136,7 +135,7 @@ h4, h5, h6 {
   margin-bottom: var(--spacing-s);
 }
 
-h1 { font-size: var(--heading-font-size-xxl) }
+h1 { font-size: var(--heading-font-size-xl) }
 h2 { font-size: var(--heading-font-size-l) }
 h3 { font-size: var(--heading-font-size-m) }
 h4 { font-size: var(--heading-font-size-s) }
@@ -347,8 +346,9 @@ button.btn:hover {
 
 /* cards */
 .card {
-  border: 1px solid var(--border-color);
   margin-bottom: var(--spacing-m);
+  border: 1px solid var(--border-color);
+  background: var(--background-color);
 }
 
 /* card img */
@@ -390,4 +390,15 @@ button.btn:hover {
 .card h2 a,
 .card h3 a {
   color: var(--text-color);
+}
+
+/* THEMES */
+.blue-social main > div:first-of-type {
+  border-top: 1px solid var(--link-hover-color);
+  background: var(--link-color);
+  color: var(--background-color);
+}
+
+.blue-social main .featured-card-container {
+  background: var(--detail-background-color);
 }
