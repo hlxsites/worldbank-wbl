@@ -809,6 +809,7 @@ header.collapsed + main .data-loading-screen {
   header, footer,
   .dropdown-links-or,
   .economy-data-overview-btn-wrapper,
+  .indicator-data-filter,
   .page-options-wrapper,
   .social-wrapper {
     display: none;

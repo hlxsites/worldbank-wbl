@@ -28,6 +28,13 @@ function writeTableContent(data) {
   return { columns, rows };
 }
 
+function resetResults() {
+  const results = document.querySelector('span.displayed');
+  if (results) results.textContent = document.querySelectorAll('tbody tr').length;
+  const filter = document.querySelector('.indicator-data-filter');
+  if (filter) filter.value = '';
+}
+
 function drawTable(el, cols, rows, specs = {}) {
   // eslint-disable-next-line no-undef
   const data = new google.visualization.DataTable();
@@ -54,10 +61,14 @@ function drawTable(el, cols, rows, specs = {}) {
   // eslint-disable-next-line no-undef
   const table = new google.visualization.Table(el);
   table.draw(data, config);
+  if (specs.sort) {
+    // eslint-disable-next-line no-undef
+    google.visualization.events.addListener(table, 'sort', resetResults);
+  }
   if (specs.results) {
     const results = document.createElement('p');
     results.classList.add('detail', 'indicator-data-results');
-    results.textContent = `Showing 1 - ${rows.length} of ${rows.length} results`;
+    results.innerHTML = `Showing 1 - <span class="displayed">${rows.length}</span> of ${rows.length} results`;
     el.prepend(results);
   }
 }
@@ -70,6 +81,20 @@ async function updateTable(indicatorCode, economyCode) {
   drawTable(table, content.columns, content.rows, { sort: false });
   closeAllMenus();
   removeLoadingScreen();
+}
+
+function filterTable(e) {
+  const { value } = e.target;
+  const table = document.querySelector('tbody');
+  table.querySelectorAll('tr').forEach((row) => {
+    if (!value.length || row.textContent.toLowerCase().includes(value)) {
+      row.classList.remove('hide');
+    } else {
+      row.classList.add('hide');
+    }
+  });
+  const results = document.querySelector('span.displayed');
+  results.textContent = table.querySelectorAll('tr:not(.hide)').length;
 }
 
 function updateDropdown(indicator) {
@@ -131,6 +156,11 @@ export default async function decorate(block) {
   const indicators = await fetchIndicators();
   try {
     if (config.indicator) {
+      // build filter
+      const filter = document.createElement('input');
+      filter.classList.add('indicator-data-filter');
+      filter.setAttribute('placeholder', 'Filter by economy, region, or data point values...');
+      filter.addEventListener('keyup', filterTable);
       // fetch table data
       const { IndicatorCode } = indicators
         .find((i) => config.indicator === i.IndicatorPublishedName);
@@ -157,7 +187,7 @@ export default async function decorate(block) {
         sort: true,
       });
 
-      block.append(table);
+      block.append(filter, table);
     } else if (config.economy) {
       // add title
       const title = document.createElement('h2');

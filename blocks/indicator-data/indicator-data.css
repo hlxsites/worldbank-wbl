@@ -5,6 +5,15 @@ main .indicator-data .indicator-data-results {
   text-transform: unset;
 }
 
+main .indicator-data .indicator-data-filter {
+  margin-bottom: var(--spacing-s);
+}
+
+main .indicator-data .indicator-data-table tr.hide {
+  display: none;
+  visibility: hidden;
+}
+
 /* indicator dropdown */
 main .indicator-data .dropdown-toggle {
   position: relative;
