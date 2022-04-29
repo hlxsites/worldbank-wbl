@@ -299,16 +299,16 @@ main .section[data-section-status='initialized'] {
   display: none;
 }
 
-main .section.highlight {
+main .section.highlight[data-section-status='loaded'] {
   background: var(--detail-background-color);
 }
 
-main .section.two-column {
+main .section.two-column[data-section-status='loaded'] {
   background: var(--detail-background-color);
 }
 
 @media (min-width: 992px) {
-  main .section.two-column {
+  main .section.two-column[data-section-status='loaded'] {
     display: grid;
     grid-template-areas: 'left-title right-title'
       'left right';
@@ -318,20 +318,20 @@ main .section.two-column {
     justify-content: center;
   }
 
-  main .section.two-column > .default-content-wrapper:nth-child(1) {
+  main .section.two-column[data-section-status='loaded'] > .default-content-wrapper:nth-child(1) {
     grid-area: left-title;
   }
 
-  main .section.two-column > .default-content-wrapper:nth-child(1) + div {
+  main .section.two-column[data-section-status='loaded'] > .default-content-wrapper:nth-child(1) + div {
     grid-area: left;
     margin-top: 0;
   }
 
-  main .section.two-column > .default-content-wrapper:nth-child(3) + div {
+  main .section.two-column[data-section-status='loaded'] > .default-content-wrapper:nth-child(3) + div {
     grid-area: right-title;
   }
 
-  main .section.two-column > .default-content-wrapper:nth-child(3) + div {
+  main .section.two-column[data-section-status='loaded'] > .default-content-wrapper:nth-child(3) + div {
     grid-area: right;
     margin-top: 0;
   }
