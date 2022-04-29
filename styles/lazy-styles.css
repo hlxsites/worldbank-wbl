@@ -809,7 +809,8 @@ header.collapsed + main .data-loading-screen {
   header, footer,
   .dropdown-links-or,
   .economy-data-overview-btn-wrapper,
-  .page-options-wrapper {
+  .page-options-wrapper,
+  .social-wrapper {
     display: none;
   }
 
@@ -832,5 +833,9 @@ header.collapsed + main .data-loading-screen {
 
   div th {
     top: 0 !important;
+  }
+
+  p a[href]::after {
+    content: ' (' attr(href) ')';
   }
 }
