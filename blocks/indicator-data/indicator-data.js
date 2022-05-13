@@ -150,7 +150,6 @@ function buildDropdownToggle(values, code) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  console.log('BEFORE config:', config);
   if (config.economy.toLowerCase() === 'from url') {
     // eslint-disable-next-line prefer-destructuring
     config.economy = window.location.pathname.split('/')[3];
@@ -159,7 +158,6 @@ export default async function decorate(block) {
     // eslint-disable-next-line prefer-destructuring
     config.year = window.location.pathname.split('/')[4];
   }
-  console.log('AFTER config:', config);
   block.textContent = '';
   buildLoadingScreen();
 
