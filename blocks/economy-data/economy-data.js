@@ -47,10 +47,8 @@ async function downloadExcel(e) {
   msg.textContent = 'Downloading...';
   msg.classList.add('economy-data-overview-btn-downloading');
   target.append(msg);
-  const economy = target.getAttribute('data-economy');
+  const code = target.getAttribute('data-economy');
   const year = target.getAttribute('data-year');
-  const economies = await fetchEconomies();
-  const { EconomyCode: code } = economies.find((ec) => economy === ec.Name);
 
   const table = document.createElement('table');
   const thead = document.createElement('thead');
@@ -88,12 +86,12 @@ async function downloadExcel(e) {
   // eslint-disable-next-line no-undef
   const workbook = XLSX.utils.table_to_book(table);
   // eslint-disable-next-line no-undef
-  XLSX.writeFile(workbook, `${economy} ${year} Snapshot.xlsx`);
+  XLSX.writeFile(workbook, `${code} Snapshot.xlsx`);
   target.style.cursor = 'default';
   msg.textContent = 'Downloaded!';
 }
 
-function buildDownloadBtn(config, type, economy, year = new Date().getFullYear()) {
+function buildDownloadBtn(type, economy, year = new Date().getFullYear()) {
   const btn = document.createElement('a');
   btn.classList.add('btn', 'economy-data-overview-btn');
   btn.id = `${type}Btn`;
@@ -105,7 +103,7 @@ function buildDownloadBtn(config, type, economy, year = new Date().getFullYear()
     btn.setAttribute('target', '_blank');
   } else {
     btn.innerHTML = `<span>Download Excel ${icon.outerHTML}</span>`;
-    btn.setAttribute('data-economy', config.economy);
+    btn.setAttribute('data-economy', economy.EconomyCode);
     btn.setAttribute('data-year', new Date().getFullYear());
     btn.addEventListener('click', (e) => {
       loadScript(
@@ -235,8 +233,8 @@ export default async function decorate(block) {
     // download btns
     const btnWrapper = document.createElement('div');
     btnWrapper.classList.add('economy-data-overview-btn-wrapper');
-    const snapshotBtn = buildDownloadBtn(config, 'snapshot', thisEconomy, config.year);
-    const downloadBtn = buildDownloadBtn(config, 'download');
+    const snapshotBtn = buildDownloadBtn('snapshot', thisEconomy, config.year);
+    const downloadBtn = buildDownloadBtn('download', thisEconomy);
     btnWrapper.append(snapshotBtn, downloadBtn);
 
     overview.append(btnWrapper);
