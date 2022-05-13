@@ -213,11 +213,12 @@ export default async function decorate(block) {
         }
       });
       const economies = await fetchEconomies();
-      console.log('economies:', economies);
-      console.log('normalized economy:', e.EconomyUrlName
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
-      const thisEconomy = economies.find((e) => config.economy === e.EconomyUrlName
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+      const thisEconomy = economies.find((e) => {
+        console.log('normalized:', e.EconomyUrlName
+          .normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+        return config.economy === e.EconomyUrlName
+          .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      });
       console.log('INDICATOR economy:', thisEconomy);
       const { EconomyCode: economyCode } = thisEconomy;
       console.log('code:', economyCode);
