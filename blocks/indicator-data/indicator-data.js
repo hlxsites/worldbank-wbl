@@ -150,14 +150,15 @@ function buildDropdownToggle(values, code) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  if (!config.economy || config.economy.toLowerCase() === 'from url') {
+  if (config.economy.toLowerCase() === 'from url') {
     // eslint-disable-next-line prefer-destructuring
     config.economy = window.location.pathname.split('/')[3];
   }
-  if (!config.year || config.year.toLowerCase() === 'from url') {
+  if (!config.year.toLowerCase() === 'from url') {
     // eslint-disable-next-line prefer-destructuring
     config.year = window.location.pathname.split('/')[4];
   }
+  console.log('config:', config);
   block.textContent = '';
   buildLoadingScreen();
 
@@ -212,9 +213,12 @@ export default async function decorate(block) {
         }
       });
       const economies = await fetchEconomies();
+      console.log('economies:', economies);
       const thisEconomy = economies.find((e) => config.economy === e.EconomyUrlName
         .normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+      console.log('economy:', thisEconomy);
       const { EconomyCode: economyCode } = thisEconomy;
+      console.log('code:', economyCode);
       const dropdown = buildDropdownToggle(options, economyCode);
       // build table
       const [data] = await fetchAPI(`/economy/${economyCode}/indicator/${options[0].code}/year/current/indicatordatapointvalues/multilevel`);
