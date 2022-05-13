@@ -93,15 +93,16 @@ async function downloadExcel(e) {
   msg.textContent = 'Downloaded!';
 }
 
-function buildDownloadBtn(config, type, link, size) {
+function buildDownloadBtn(config, type, economy, year = new Date().getFullYear()) {
   const btn = document.createElement('a');
   btn.classList.add('btn', 'economy-data-overview-btn');
   btn.id = `${type}Btn`;
   const icon = buildIcon('download-gold');
   if (type === 'snapshot') {
-    btn.innerHTML = `<span>Download Snapshot ${icon.outerHTML}</span>
-      ${size ? `<span class="economy-data-overview-btn-size">${size}</span>` : ''}`;
-    btn.href = link;
+    btn.innerHTML = `<span>Download Snapshot ${icon.outerHTML}</span>`;
+    const nameSegments = economy.NormalizedName.replace(/\./g, '').split(' ').map((w, i) => (i !== 0 ? w.toLowerCase() : w));
+    btn.href = `https://wbl.worldbank.org/content/dam/documents/wbl/${year}/snapshots/${nameSegments.join('-')}.pdf`;
+    btn.setAttribute('target', '_blank');
   } else {
     btn.innerHTML = `<span>Download Excel ${icon.outerHTML}</span>`;
     btn.setAttribute('data-economy', config.economy);
@@ -201,10 +202,22 @@ function drawColumnChart(el, values) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
+  if (!config.economy || config.economy.toLowerCase() === 'from url') {
+    // eslint-disable-next-line prefer-destructuring
+    config.economy = window.location.pathname.split('/')[3];
+  }
+  if (!config.year || config.year.toLowerCase() === 'from url') {
+    // eslint-disable-next-line prefer-destructuring
+    config.year = window.location.pathname.split('/')[4];
+  }
   block.textContent = '';
   buildLoadingScreen();
 
   const economies = await fetchEconomies();
+  const thisEconomy = economies.find((e) => config.economy === e.EconomyUrlName
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+  thisEconomy.NormalizedName = thisEconomy.Name.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  document.querySelector('h1').textContent = thisEconomy.Name;
   let indexes = {};
   // OVERVIEW SECTION
   const overview = document.createElement('section');
@@ -212,7 +225,7 @@ export default async function decorate(block) {
   block.append(overview);
   try {
     // table
-    const { EconomyCode: code } = economies.find((e) => config.economy === e.Name);
+    const { EconomyCode: code } = thisEconomy;
     const { Economy: economy } = await fetchAPI(`/economy/${code}/year/current/details`);
     const economyDetails = economy.EconomyDetails.map((d) => [d.EconomyDetailTypeName, d.Value]);
     const table = buildTable(economyDetails);
@@ -222,12 +235,9 @@ export default async function decorate(block) {
     // download btns
     const btnWrapper = document.createElement('div');
     btnWrapper.classList.add('economy-data-overview-btn-wrapper');
-    if (config['snapshot-url']) {
-      const snapshotBtn = buildDownloadBtn(config, 'snapshot', config['snapshot-url'], config['snapshot-size'] || '');
-      btnWrapper.append(snapshotBtn);
-    }
+    const snapshotBtn = buildDownloadBtn(config, 'snapshot', thisEconomy, config.year);
     const downloadBtn = buildDownloadBtn(config, 'download');
-    btnWrapper.append(downloadBtn);
+    btnWrapper.append(snapshotBtn, downloadBtn);
 
     overview.append(btnWrapper);
     // pie chart
