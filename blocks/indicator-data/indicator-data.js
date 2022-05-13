@@ -154,7 +154,7 @@ export default async function decorate(block) {
     // eslint-disable-next-line prefer-destructuring
     config.economy = window.location.pathname.split('/')[3];
   }
-  if (!config.year.toLowerCase() === 'from url') {
+  if (config.year.toLowerCase() === 'from url') {
     // eslint-disable-next-line prefer-destructuring
     config.year = window.location.pathname.split('/')[4];
   }
@@ -216,7 +216,7 @@ export default async function decorate(block) {
       console.log('economies:', economies);
       const thisEconomy = economies.find((e) => config.economy === e.EconomyUrlName
         .normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
-      console.log('economy:', thisEconomy);
+      console.log('INDICATOR economy:', thisEconomy);
       const { EconomyCode: economyCode } = thisEconomy;
       console.log('code:', economyCode);
       const dropdown = buildDropdownToggle(options, economyCode);

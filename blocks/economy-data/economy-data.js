@@ -214,6 +214,7 @@ export default async function decorate(block) {
   const economies = await fetchEconomies();
   const thisEconomy = economies.find((e) => config.economy === e.EconomyUrlName
     .normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+  console.log('ECONOMY economy:', thisEconomy);
   thisEconomy.NormalizedName = thisEconomy.Name.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   document.querySelector('h1').textContent = thisEconomy.Name;
   let indexes = {};
