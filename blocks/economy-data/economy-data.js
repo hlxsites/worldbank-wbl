@@ -200,6 +200,7 @@ function drawColumnChart(el, values) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
+  console.log('BEFORE config:', config);
   if (!config.economy || config.economy.toLowerCase() === 'from url') {
     // eslint-disable-next-line prefer-destructuring
     config.economy = window.location.pathname.split('/')[3];
@@ -208,13 +209,13 @@ export default async function decorate(block) {
     // eslint-disable-next-line prefer-destructuring
     config.year = window.location.pathname.split('/')[4];
   }
+  console.log('AFTER config:', config);
   block.textContent = '';
   buildLoadingScreen();
 
   const economies = await fetchEconomies();
   const thisEconomy = economies.find((e) => config.economy === e.EconomyUrlName
     .normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
-  console.log('ECONOMY economy:', thisEconomy);
   thisEconomy.NormalizedName = thisEconomy.Name.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   document.querySelector('h1').textContent = thisEconomy.Name;
   let indexes = {};
