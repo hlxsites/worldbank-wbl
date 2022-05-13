@@ -1,2 +1,8 @@
 mountpoints:
   /: https://adobe.sharepoint.com/sites/HelixProjects/Shared%20Documents/sites/worldbank-wbl
+
+folders:
+  /data/exploreeconomies/: /data/exploreeconomies/default
+  # /localexperts/: /local-experts/default
+  # /reforms/economy: /reforms/economy/default
+  # /reforms/indicator: /reforms/indicator/default
