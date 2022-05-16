@@ -95,6 +95,14 @@ function drawTable(el, cols, rows, specs = {}) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
+  if (!config.economy && window.location.pathname.includes('/reforms/economy/')) {
+    // eslint-disable-next-line prefer-destructuring
+    config.economy = window.location.pathname.split('/')[3];
+  }
+  if (!config.indicator && window.location.pathname.includes('/reforms/topic/')) {
+    // eslint-disable-next-line prefer-destructuring
+    config.indicator = window.location.pathname.split('/')[3].replace('-', '_').toUpperCase();
+  }
   block.textContent = '';
   buildLoadingScreen();
 
@@ -102,7 +110,8 @@ export default async function decorate(block) {
   const indicators = await fetchIndicators();
   try {
     if (config.economy) {
-      const economy = economies.find((ec) => config.economy === ec.Name);
+      const economy = economies.find((e) => config.economy === e.EconomyUrlName
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
       const data = await fetchAPI(`/year/2020/reform?$orderby=ReformSummary%20desc&economyCode=${economy.EconomyCode}`);
       const content = writeTableContent(data, economies, indicators);
       const table = document.createElement('div');
@@ -111,7 +120,7 @@ export default async function decorate(block) {
 
       block.append(table);
     } else if (config.indicator) {
-      const indicator = indicators.find((i) => i.IndicatorPublishedName === config.indicator);
+      const indicator = indicators.find((i) => i.IndicatorCode === config.indicator);
       const data = await fetchAPI(`/year/2020/reform?$orderby=ReformSummary%20desc&indicatorCode=${indicator.IndicatorCode}`);
       const content = writeTableContent(data, economies, indicators);
       const table = document.createElement('div');
