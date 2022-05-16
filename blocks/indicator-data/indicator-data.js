@@ -150,11 +150,11 @@ function buildDropdownToggle(values, code) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
-  if (config.economy.toLowerCase() === 'from url') {
+  if (config.economy?.toLowerCase() === 'from url') {
     // eslint-disable-next-line prefer-destructuring
     config.economy = window.location.pathname.split('/')[3];
   }
-  if (config.year.toLowerCase() === 'from url') {
+  if (config.year?.toLowerCase() === 'from url') {
     // eslint-disable-next-line prefer-destructuring
     config.year = window.location.pathname.split('/')[4];
   }
