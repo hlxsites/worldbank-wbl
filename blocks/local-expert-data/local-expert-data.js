@@ -39,13 +39,18 @@ function buildList(data) {
  */
 export default async function decorate(block) {
   const config = readBlockConfig(block);
+  if (!config.economy || config.economy.toLowerCase() === 'from url') {
+    // eslint-disable-next-line prefer-destructuring
+    config.economy = window.location.pathname.split('/')[2];
+  }
   block.textContent = '';
   buildLoadingScreen();
 
   const economies = await fetchEconomies();
+  const thisEconomy = economies.find((e) => config.economy === e.EconomyUrlName
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
   try {
-    const economy = economies.find((ec) => config.economy === ec.Name);
-    const data = await fetchAPI(`/economy/${economy.EconomyCode}/contributors?$orderby=LastName`);
+    const data = await fetchAPI(`/economy/${thisEconomy.EconomyCode}/contributors?$orderby=LastName`);
     const list = buildList(data);
 
     block.append(list);
